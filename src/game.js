@@ -3,9 +3,11 @@ define(
 		"pixi",
 		"lodash",
 
-		"config"
+		"config",
+
+		"./util/keys"
 	],
-	function (P, _, config) {
+	function (P, _, config, keys) {
 		function Game () {
 			this.renderer = new P.CanvasRenderer(config.width, config.height);
 			this.stage = new P.Stage();
@@ -57,6 +59,10 @@ define(
 
 			frame: function frame () {
 				this.renderer.render(this.stage);
+
+				if (keys["left"]) {
+					console.log("left is down this frame.");
+				}
 				
 				window.requestAnimationFrame(frame.bind(this));
 			}
