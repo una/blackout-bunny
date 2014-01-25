@@ -3,31 +3,22 @@ define(
 		"pixi",
 		"lodash",
 
-		"config",
-
-		"./game"
-		//		"./scenes/index"
+		"config"
 	],
-	function (P, _, config, scenes) {
+	function (P, _, config) {
 		function Game () {
-
+			this.renderer = new P.CanvasRenderer(config.width, config.height);
+			this.stage = new P.Stage();
 		}
 		_.extend(Game.prototype, {
 			
 			start: function () {
 				//Init PIXI
-				var stage = new P.Stage(),
-				    renderer = new P.CanvasRenderer(config.width, config.height),
-				    background = new P.RenderTexture(
+				var background = new P.RenderTexture(
 					    config.world[0].length * config.tileWidth,
 					    config.world.length * config.tileHeight
 				    ),
-
-				    //sprite = new P.Sprite(P.Texture.fromImage("tempBoxRed.png")),
-				    ii,
-				    spriteNum = 0,
-				    spriteFile,
-				    sprite;
+				    backgroundSprite;
 
 				//Print background once
 				(function () {
@@ -53,17 +44,21 @@ define(
 					background.render(backgroundStage);
 				})();
 
-				var backgroundSprite = new P.Sprite(background);
-				stage.addChild(backgroundSprite);
+				backgroundSprite = new P.Sprite(background);
+				this.stage.addChild(backgroundSprite);
 				
-				document.body.appendChild(renderer.view)
+				document.body.appendChild(this.renderer.view)
 
-				renderer.render(stage);
-				
-				
+				window.requestAnimationFrame(this.frame.bind(this))
 			},
 
 			cutscene: function () {
+			},
+
+			frame: function frame () {
+				this.renderer.render(this.stage);
+				
+				window.requestAnimationFrame(frame.bind(this));
 			}
 		})
 
