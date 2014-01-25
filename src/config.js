@@ -1,7 +1,8 @@
 define(
 	[
+		"./minigames/puzzle"
 	],
-	function () {
+	function (Puzzle) {
 		return {
 			//Canvas size
 			width: 1000,
@@ -21,6 +22,17 @@ define(
 				0: true,
 				1: true
 			},
+
+			triggers: {
+				"1,1": function (game, cb) {
+					if (game.progress > 0)
+						cb();
+					else {
+						(new Puzzle(game.renderer, cb)).run();
+					}
+				}
+			},
+
 			world:
 			[
 

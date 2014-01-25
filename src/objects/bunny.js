@@ -8,8 +8,9 @@ define(
 		"../util/keys"
 	],
 	function (P, _, config, keys) {
-		function Bunny () {
+		function Bunny (game) {
 			P.Sprite.call(this, P.Texture.fromImage(this.assets[0][0]));
+			this.game = game;
 			console.log("width: " + this.width, "height: " + this.height);
 		}
 
@@ -21,11 +22,11 @@ define(
 				["char-sprites/sprite-f-1.png", "char-sprites/sprite-f-2.png"],
 				["char-sprites/sprite-l-1.png", "char-sprites/sprite-l-2.png", "char-sprites/sprite-l-3.png", "char-sprites/sprite-l-4.png"]
 			],
-			update: function () {
+			update: function (next) {
 				var newPos = {
-					  	x: this.position.x,
-					  	y: this.position.y
-				    },
+					x: this.position.x,
+					y: this.position.y
+				},
 				    moving = false,
 				    collision;
 
@@ -50,9 +51,17 @@ define(
 					moving = true;
 				}
 
-				if (moving && !(collision = this.checkCollision(newPos))) {					
-					this.position.x = newPos.x;
-					this.position.y = newPos.y;
+				if (moving) {
+					this.checkCollision(newPos, function (collided) {
+						if (!collided) {
+							this.position.x = newPos.x;
+							this.position.y = newPos.y;
+						}
+						next();
+					}.bind(this));
+				}
+				else {
+					next();
 				}
 				
 			},
@@ -70,8 +79,8 @@ define(
 					
 					frameCounters[dir] = frameCounters[dir] || 0
 					frameCounters[dir]++;
-//					console.log(frameCounters[dir])
-//					console.log(dir)
+					//					console.log(frameCounters[dir])
+					//					console.log(dir)
 
 					if (this.assets[dir].length <= frameCounters[dir]) {
 						frameCounters[dir] = 0;
@@ -81,40 +90,55 @@ define(
 				};
 			})(),
 			
-			checkCollision: function (newPos) {
+			checkCollision: function (newPos, next) {
 				var maxY = newPos.y + this.height,
 				    minY = maxY - config.legHeight,
 				    maxX = newPos.x + this.width - config.legXOffset,
 				    minX = newPos.x + config.legXOffset,
 
-				    row = Math.floor(minY / config.tileHeight),
-				    col = Math.floor(minX / config.tileWidth),
+				    minRow = Math.floor(minY / config.tileHeight),
+				    minCol = Math.floor(minX / config.tileWidth),
 				    maxRow = Math.floor(maxY / config.tileHeight),
-				    maxCol = Math.floor(maxX / config.tileWidth);
+				    maxCol = Math.floor(maxX / config.tileWidth),
+				    row = minRow,
+				    col = minCol,
+				    trigger;
 
-//				console.log(config.legHeight + ", " + maxY);
-//				console.log(row + " - " + maxRow + ", " + col + " - " + maxCol);
+				//				console.log(config.legHeight + ", " + maxY);
+				//				console.log(minRow + " - " + maxMinRow + ", " + col + " - " + maxCol);
 
 				if (minX < 0 ||
 				    minY < 0 ||
 				    maxX > (config.tileWidth * config.world[0].length) ||
 				    maxY > (config.tileHeight * config.world.length))
-				    return true;
+					return next(true);
 				
-				while (row <= maxRow) {
-					while (col <= maxCol) {
-						if (!config.passableTiles[config.world[row][col]]) {
-							console.log("width: " + this.width, "height: " + this.height);
-							return true;
+				for (row = minRow; row <= maxRow; row++) {
+					for (col = minCol; col <= maxCol; col++) {
+						if (!config.passableTiles[config.world[minRow][col]]) {
+							return next(true);
 						}
-//						else
-//							console.log(config.world[row][col] + " is passable");
-						col++;
 					}
-					row++;
 				}				
-				
-				return false;
+
+
+				var triggerLoop;
+				triggerLoop = function (r, c, next) {
+					//Recursive version of loop
+					if (c > maxCol) {
+						c = minCol;
+						r++;
+					}
+					if (r > maxRow) {
+						return next();
+					}
+					else {
+						return this.game.trigger(r, c, function () {
+							return triggerLoop(r, c + 1, next);
+						}.bind(this));
+					}
+				}.bind(this);
+				return triggerLoop(minRow, minCol, next);
 
 			}
 		});

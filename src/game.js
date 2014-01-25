@@ -11,6 +11,8 @@ define(
 	],
 	function (P, _, config, keys, Bunny) {
 		function Game () {
+			this.progress = 0;
+
 			this.renderer = new P.CanvasRenderer(config.width, config.height);
 			this.stage = new P.Stage();
 
@@ -61,7 +63,7 @@ define(
 
 				})();
 
-				this.bunny = new Bunny()
+				this.bunny = new Bunny(this)
 				
 				this.bunny.position.x = 600;
 				this.bunny.position.y = 100;
@@ -80,28 +82,42 @@ define(
 				window.requestAnimationFrame(this.frame.bind(this))
 			},
 
-			cutscene: function () {
-			},
-
 			frame: function frame (charSprite) {
 
-				this.bunny.update();
+				this.bunny.update(function () {
 
-				//Camera pan
-				var x = this.bunny.position.x,
-				    y = this.bunny.position.y,
-				    cameraX = this.camView.width / 2 - Math.max(this.camBoundary.x, Math.min(this.camBoundary.x + this.camBoundary.width, x)),
-				    cameraY = this.camView.height / 2 - Math.max(this.camBoundary.y, Math.min(this.camBoundary.y + this.camBoundary.height, y));
+					//Camera pan
+					var x = this.bunny.position.x,
+					    y = this.bunny.position.y,
+					    cameraX = this.camView.width / 2 - Math.max(this.camBoundary.x, Math.min(this.camBoundary.x + this.camBoundary.width, x)),
+					    cameraY = this.camView.height / 2 - Math.max(this.camBoundary.y, Math.min(this.camBoundary.y + this.camBoundary.height, y));
 
-				this.foreground.position.x = this.background.position.x = cameraX;
-				this.foreground.position.y = this.background.position.y = cameraY;
+					this.foreground.position.x = this.background.position.x = cameraX;
+					this.foreground.position.y = this.background.position.y = cameraY;
 
-//				console.log(x + ", " + y)
+					//				console.log(x + ", " + y)
 
-				this.renderer.render(this.stage);
+					this.renderer.render(this.stage);
 
-				console.log("frame");
-				window.requestAnimationFrame(frame.bind(this));
+//					console.log("frame");
+					window.requestAnimationFrame(frame.bind(this));
+				}.bind(this));
+			},
+
+			trigger: function (row, col, next) {
+				var trigId = row + "," + col;
+				if (config.triggers[trigId])
+					config.triggers[trigId](this, function (result) {
+						this.returnFromMinigame(result, next);
+					}.bind(this));
+				else
+					next();
+			},
+			
+			returnFromMinigame: function (result, next) {
+				console.log(result);
+				this.progress++;
+				next();
 			}
 		})
 
