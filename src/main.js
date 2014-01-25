@@ -1,6 +1,6 @@
 require.config({
 	paths: {
-		lodash: "../bower_comoponents/lodash/dist/lodash.underscore.min",
+		lodash: "../bower_components/lodash/dist/lodash.underscore.min",
 		pixi: "../bower_components/pixi/bin/pixi"
 	},
 
@@ -14,9 +14,9 @@ require.config({
 
 define(
 	[
-		'pixi'
+		'./app'
 	],
-	function (P) {
-		console.log("Loaded with Require.");
+	function (P, App) {
+		(new App()).start();
 	}
 );
