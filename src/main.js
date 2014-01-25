@@ -15,9 +15,16 @@ require.config({
 
 define(
 	[
-		'./game'
+		"pixi",
+		
+		"./game"
 	],
 	function (P, Game) {
-		(new Game()).start();
+		var loader = new P.AssetLoader(["assets/tiles.json"])
+		loader.onComplete = function () {
+			(new Game()).start();
+		};
+
+		loader.load();
 	}
 );

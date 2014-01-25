@@ -5,8 +5,8 @@ define(
 
 		"config",
 
-		"./game",
-		"./scenes/index"
+		"./game"
+//		"./scenes/index"
 	],
 	function (P, _, config, scenes) {
 		function Game () {
@@ -17,10 +17,19 @@ define(
 			start: function () {
 				//Init PIXI
 				var stage = new P.Stage(),
-				    renderer = new P.CanvasRenderer(config.width, config.height)
+				    renderer = new P.CanvasRenderer(config.width, config.height),
+
+				    sprite = new P.Sprite(P.Texture.fromImage("tempBoxRed.png"));
 				
 				document.body.appendChild(renderer.view)
+
+				stage.addChild(sprite);
+				renderer.render(stage);
 				
+				
+			},
+
+			cutscene: function () {
 			}
 		})
 
