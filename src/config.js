@@ -10,6 +10,7 @@ define(
 			tileWidth: 50,
 			tileHeight: 50,
 			tileTypes: 3,
+			speed: 3,
 
 			world:
 			[

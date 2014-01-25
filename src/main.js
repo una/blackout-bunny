@@ -30,7 +30,7 @@ define(
 		"./game"
 	],
 	function (P, Game) {
-		var loader = new P.AssetLoader(["assets/tiles.json"])
+		var loader = new P.AssetLoader(["assets/sprites.json"])
 		loader.onComplete = function () {
 			(new Game()).start();
 		};
