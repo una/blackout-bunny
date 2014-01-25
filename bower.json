@@ -1,0 +1,7 @@
+{
+  "name": "Blackout Bunny",
+  "dependencies": {
+    "requirejs": "~2.1.10",
+    "pixi": "~1.4.3"
+  }
+}
