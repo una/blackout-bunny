@@ -1,7 +1,8 @@
 require.config({
 	paths: {
 		lodash: "../bower_components/lodash/dist/lodash.underscore.min",
-		pixi: "../bower_components/pixi/bin/pixi"
+		pixi: "../bower_components/pixi/bin/pixi",
+		config: "./config"
 	},
 
 	shim: {
@@ -14,9 +15,9 @@ require.config({
 
 define(
 	[
-		'./app'
+		'./game'
 	],
-	function (P, App) {
-		(new App()).start();
+	function (P, Game) {
+		(new Game()).start();
 	}
 );
