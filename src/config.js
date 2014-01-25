@@ -7,11 +7,20 @@ define(
 			width: 1000,
 			height: 600,
 
+			//Bunny settings
+			speed: 3,
+			frameDelay: 5,
+			legHeight: 35,
+			legXOffset: 10,
+
+			//World construction
 			tileWidth: 50,
 			tileHeight: 50,
 			tileTypes: 3,
-			speed: 3,
-
+			passableTiles: {
+				0: true,
+				1: true
+			},
 			world:
 			[
 

@@ -18,18 +18,24 @@ define(
 			    37: "left",
 			    38: "up",
 			    39: "right",
-			    40: "down"
+			    40: "down",
+			    116: "f5",
+			    123: "f12"
+		    },
+		    pass = {
+			    "f5": true,
+			    "f12": true
 		    },
 		    keyName = function (event) {
 			    return specialKeys[event.which] || String.fromCharCode(event.which).toLowerCase();
 		    };
 
 		window.document.onkeydown = function (evt) {
-			evt.preventDefault();
+			if (!pass[keyName(evt)])
+				evt.preventDefault();
 			
-			keys[keyName(event)] = true;
+			keys[keyName(evt)] = true;
 
-			return false;
 		}.bind(this);
 
 		window.document.onkeyup = function (event) {
