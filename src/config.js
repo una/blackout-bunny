@@ -5,7 +5,7 @@ define(
 	function (Puzzle) {
 		return {
 			//Canvas size
-			width: 1000,
+			width: 800,
 			height: 600,
 
 			//Bunny settings
@@ -32,6 +32,23 @@ define(
 					}
 				}
 			},
+
+
+			puzzle: {
+				spots: [
+			{x:50, y:100,id:1},
+			{x:100,y:200,id:2},
+			{x:60, y:50, id:3},
+			{x:500,y:400,id:4},
+			{x:300, y: 10, id:5},
+			{x:750, y: 450, id:6},
+			{x:245, y:300, id:7},
+			{x:300, y: 300, id:8},
+			{x:100, y:100, id:9},
+			{x:200, y:350,id:10}],
+			items: 7,
+			}
+			
 
 			world:
 			[
