@@ -26,15 +26,25 @@ window.requestAnimationFrame = (function(){
 define(
 	[
 		"pixi",
+
+		"lodash",
 		
-		"./game"
+		"./game",
+		"./util/sound"
 	],
-	function (P, Game) {
+	function (P, _, Game, sound) {
+
 		var loader = new P.AssetLoader(["assets/sprites.json"])
 		loader.onComplete = function () {
 			(new Game()).start();
 		};
 
-		loader.load();
+		var musicCount = 5;
+		_.each(["OverworldSober", "OverworldDrunk1", "OverworldDrunk2", "OverworldDrunk3", "MinigameSober"], function (f) {
+			sound.loadSound("assets/src/Music/" + f + ".mp3", function () {
+				if (--musicCount == 0)
+					loader.load();
+			});
+		});
 	}
 );

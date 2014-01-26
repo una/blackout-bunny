@@ -31,7 +31,10 @@ define(
 				66: true,
 				84: true,
 				67: true,
-				68: true
+				68: true,
+				37: true,
+				38: true,
+				39: true
 			},
 
 			dialog: {
