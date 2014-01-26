@@ -22,6 +22,41 @@ define(
 				1: true
 			},
 
+			dialog: {
+				marginLeft: 10,
+				marginBottom: 10,
+
+				script: {
+
+					intro: [
+						{
+							head: false,
+							side: 0,
+							lines: [
+								"You blacked out again..."
+							]
+						},
+						{
+							head: "dialog/bunny_closed.png",
+							side: 0,
+							lines: [
+								"Ugh, what happened last night? I must have drank more than I thought. Last thing I remember was doing shots of carrot juice."
+							]
+						},
+						{
+							head: "dialog/bunny_open.png",
+							side: 0,
+							lines: [
+								"Man, I'm hungry. Let's get some food."
+							]
+						}
+					]
+
+
+				}
+
+			},
+			
 
 			puzzle: {
 				spots: [
