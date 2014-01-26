@@ -261,15 +261,15 @@ define(
 					{x:625, y:250}],
 				items: 3,
 				loseTime: 30,
-				tolerance: 30
+				tolerance: 50
 			},
 
 			frogger: {
 				eggs: 4,
 
 				sheepFrameDelay: 6,
-				minSheepSpeed: 3,
-				maxSheepSpeed: 4,
+				minSheepSpeed: 0.5,
+				maxSheepSpeed: 3,
 
 				sheepCount: 12
 			},
