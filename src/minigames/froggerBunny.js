@@ -5,9 +5,12 @@ define(
 
 		"config",
 
-		"../util/keys"
+		"../util/keys",
+
+		"./egg",
+		"./sheep"
 	],
-	function (P, _, config, keys) {
+	function (P, _, config, keys, Egg, Sheep) {
 		function Bunny (game) {
 			P.Sprite.call(this, P.Texture.fromImage(this.assets[2][0]));
 			this.game = game;
@@ -51,58 +54,27 @@ define(
 					moving = true;
 				}
 
-				if (moving) {
-					this.checkCollision(newPos, function (collided) {
-						if (!collided) {
-							this.position.x += newPos.x;
-							this.position.y += newPos.y;
-						}
-						next();
-					}.bind(this));
+				collision = this.checkCollision(newPos);
+				if (!collision) {
+					this.position.x += newPos.x;
+					this.position.y += newPos.y;
 				}
 				else {
-					next();
-				}
-				
-			},
-
-			switchFrame: (function () {
-				var frameCounters = {},
-				    frameDelay = 0;
-				
-				return function (dir) {
-					if (++frameDelay < config.frameDelay)
-						return;
-
-					frameDelay = 0;
-
-					
-					frameCounters[dir] = frameCounters[dir] || 0
-					frameCounters[dir]++;
-					//					console.log(frameCounters[dir])
-					//					console.log(dir)
-
-					if (this.assets[dir].length <= frameCounters[dir]) {
-						frameCounters[dir] = 0;
+					if (collision instanceof Egg) {
+						this.game.takeEgg(collision);
 					}
-					
-					this.setTexture(P.Texture.fromImage(this.assets[dir][frameCounters[dir]]));
-				};
-			})(),
+					else if (collision instanceof Sheep) {
+						this.game.lose();
+					}
+				}
+			},
 			
-			checkCollision: function (newPos, next) {
+			checkCollision: function (newPos, moving) {
 				var maxY = newPos.y + this.position.y + this.height,
 				    minY = maxY - config.legHeight,
 				    maxX = newPos.x + this.position.x + this.width - config.legXOffset,
 				    minX = newPos.x + this.position.x + config.legXOffset,
-
-				    minRow = Math.floor(minY / config.tileHeight),
-				    minCol = Math.floor(minX / config.tileWidth),
-				    maxRow = Math.floor(maxY / config.tileHeight),
-				    maxCol = Math.floor(maxX / config.tileWidth),
-				    row = minRow,
-				    col = minCol,
-				    trigger;
+				    ii, egg, sheep;
 
 				
 				//				console.log(config.legHeight + ", " + maxY);
@@ -112,36 +84,51 @@ define(
 				    minY < 0 ||
 				    maxX > (config.tileWidth * config.world[0].length) ||
 				    maxY > (config.tileHeight * config.world.length))
-					return next(true);
+					return true;
+
+				for (ii = 0; ii < this.game.eggs.length; ii++) {
+					egg = this.game.eggs[ii];
+					if (maxX > egg.position.x
+					    && minX < egg.position.x + egg.width
+					    && maxY > egg.position.y
+					    && minY < egg.position.y + egg.height)
+						return egg;
+				};
+				for (ii = 0; ii < this.game.sheep.length; ii++) {
+					sheep = this.game.sheep[ii];
+					if (maxX > sheep.position.x
+					    && minX < sheep.position.sheep + egg.width
+					    && maxY > sheep.position.y
+					    && minY < sheep.position.y + sheep.height)
+						return sheep;
+				};
+
+				return false;
 				
-				for (row = minRow; row <= maxRow; row++) {
-					for (col = minCol; col <= maxCol; col++) {
-						if (!config.passableTiles[config.world[row][col]]) {
-							return next(true);
-						}
-					}
-				}				
+			},
 
+			switchFrame: function (dir) {
+				this.frameCounters = this.frameCounters || {};
+				this.frameDelayItr = this.frameDelay || 0;
+				
+				if (++this.frameDelayItr < this.frameDelay)
+					return;
 
-				var triggerLoop;
-				triggerLoop = function (r, c, next) {
-					//Recursive version of loop
-					if (c > maxCol) {
-						c = minCol;
-						r++;
-					}
-					if (r > maxRow) {
-						return next();
-					}
-					else {
-						return this.game.trigger(r, c, function () {
-							return triggerLoop(r, c + 1, next);
-						}.bind(this));
-					}
-				}.bind(this);
-				return triggerLoop(minRow, minCol, next);
+				this.frameDelayItr = 0;
 
+				
+				this.frameCounters[dir] = this.frameCounters[dir] || 0
+				this.frameCounters[dir]++;
+				//					console.log(this.frameCounters[dir])
+				//					console.log(dir)
+
+				if (this.assets[dir].length <= this.frameCounters[dir]) {
+					this.frameCounters[dir] = 0;
+				}
+				
+				this.setTexture(P.Texture.fromImage(this.assets[dir][this.frameCounters[dir]]));
 			}
+
 		});
 
 		return Bunny;

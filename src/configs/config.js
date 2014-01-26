@@ -231,7 +231,13 @@ define(
 			},
 
 			frogger: {
-				eggs: 4
+				eggs: 4,
+
+				sheepFrameDelay: 6,
+				minSheepSpeed: 3,
+				maxSheepSpeed: 4,
+
+				sheepCount: 5
 			},
 
 			world:
