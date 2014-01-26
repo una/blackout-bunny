@@ -1,0 +1,16 @@
+body {
+	background: black;
+	text-align: center;
+}
+
+img {
+	margin: 0 auto;
+}
+
+.logo {
+	width: 300px;
+	height: 200px;
+	background-size: 100%;
+	background-image: url('images/bb-logo-white.png');
+
+}

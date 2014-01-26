@@ -1,0 +1,39 @@
+body {
+	background: black;
+	text-align: center;
+}
+
+img {
+	margin: 0 auto;
+}
+
+.logo {
+	background-image: url('../images/bb-logo-white.png');
+	width: 400px;
+	height: 170px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	margin: 20px 40px 40px 20px;
+}
+
+.bunny-start {
+	width: 650px;
+	margin-top: -220px;
+}
+
+.start-button {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background-color: #ea4c88;
+	color: #eee;
+	width: 280px;
+	font-size: 2em;
+	border: none;
+	margin: 1em;
+	padding: 0.2em;
+}
+
+.start-button:HOVER {
+	background-color: #9e1e62;
+}
