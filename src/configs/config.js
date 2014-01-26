@@ -50,21 +50,28 @@ define(
 							head: false,
 							side: 1,
 							lines: [
-								"You blacked out again... (press spacebar to continue)"
+								"*?!^&@$$, what happened last night? You blacked out again... (press spacebar to continue)"
 							]
 						},
 						{
 							head: "dialog/bunny_closed.png",
 							side: 0,
 							lines: [
-								"Ugh, what happened last night? I must have drank more than I thought. Last thing I remember was doing shots of carrot juice."
+								"Man, I'm hungry. Last thing I remember were those carrot juice shots. Oops y'all."
 							]
 						},
 						{
 							head: "dialog/bunny_open.png",
 							side: 0,
 							lines: [
-								"Man, I'm hungry. Let's get some food."
+								"Where is FOOOOOOOOOD!?"
+							]
+						},
+						{
+							head: false,
+							side: 1,
+							lines: [
+								"(Use the arrow keys to navigate to Karrot King)"
 							]
 						}
 					],
@@ -74,21 +81,21 @@ define(
 							head: "dialog/rufus_closed.png",
 							side: 1,
 							lines: [
-								"Hello and welcome to Karrot King, may I interest you in one of our gourmet specials or farm-fresh appetizers?"
+								"Hello... welcome to Karrot King... home of the Bunny Burger and the minimum wage... what do you want, dude?"
 							]
 						},
 						{
 							head: "dialog/bunny_open.png",
 							side: 0,
 							lines: [
-								"Yeah, can I have a Bunny Burger and a small shake?"
+								"Yeah, can I have a Karrot Shake and a small fry?"
 							]
 						},
 						{
 							head: "dialog/rufus_closed.png",
 							side: 1,
 							lines: [
-								"$6.90."
+								"Rawrfs... $6.90."
 							]
 						},
 						{
@@ -102,22 +109,31 @@ define(
 							head: "dialog/bunny_open.png",
 							side: 0,
 							lines: [
-								"Wait, where's my wallet?"
+								"Holy Cabbage Patch! Where's my wallet?!"
 							]
 						},
 						{
 							head: "dialog/manager_open.png",
 							side: 1,
 							lines: [
-								"YOU!",
-								"I remember you! You were here last night and made a huge mess!"
+								"YOU!!!!!!!!",
+								"RAWWRFS! I remember you! Last night you rawrfed my store big time!"
 							]
 						},
 						{
 							head: "dialog/manager_closed.png",
 							side: 1,
 							lines: [
-								"The whole place is trashed! Either you clean up or I call the police!"
+								"The whole place is trashed! Clean up or I call the RAWRFLICE!"
+							]
+						},
+				
+						{
+							head: false,
+							side: 1,
+							lines: [
+								"You're about to see an image of what the store SHOULD look like. Remember it, and rearrange the pieces in the correct location.",
+								"Use spacebar to change the item you are controlling. The arrow keys move the item around the screen."
 							]
 						}
 					],
@@ -127,7 +143,7 @@ define(
 							head: "dialog/bunny_closed.png",
 							side: 0,
 							lines: [
-								"I am feeling a little sick...."
+								"Oh !$%@ Am I still drunk?..."
 							]
 
 						}
@@ -139,7 +155,7 @@ define(
 							head: "dialog/bunny_closed.png",
 							side: 0,
 							lines: [
-								"I should really find my wallet soon, I'm getting worse!"
+								"I'm DEFINITELY still drunk."
 							]
 						}
 					],
@@ -149,7 +165,7 @@ define(
 							head: "dialog/bunny_closed.png",
 							side: 0,
 							lines: [
-								"I'm gonna pass out!"
+								"BLERGHDERP PEAS AND CARROTS"
 							]
 						}
 					],
@@ -159,7 +175,7 @@ define(
 							head: "dialog/bunny_closed.png",
 							side: 0,
 							lines: [
-								"I found a feather while I was cleaning up, I guess I was at the farm last night?"
+								"What's this feather? Did I visit the chicks from the farm last night?"
 							]
 						}
 					],
@@ -169,7 +185,7 @@ define(
 							head: "dialog/bunny_closed.png",
 							side: 0,
 							lines: [
-								"Great, now I can go ask this chicken about my wallet!"
+								"Crazy Sheep! I hope the chicks are still around."
 							]
 
 						},
@@ -178,7 +194,7 @@ define(
 							head: "dialog/lana_closed.png",
 							side: 1,
 							lines: [
-								"HOW DARE YOU COME BACK HERE!"
+								"YOU LITTLE CACAWWKER!! YOU STOLE MY EGGS LAST NIGHT!!"
 							]
 
 						},
@@ -186,16 +202,23 @@ define(
 							head: "dialog/bunny_open.png",
 							side: 0,
 							lines: [
-								"Look, I am drunk and looking for my wallet. Have you seen it?"
+								"Ugh, Lana, calm your cacawking. I'm just looking for my wallet",
+								"Have you seen it?"
 							]
 						},
 						{
 							head: "dialog/lana_open.png",
 							side: 1,
 							lines: [
-								"But YOU are the one who stole all my precious eggs!"
+								"Yeah I've seen it. You'll get it back to you when you return ALL my eggs safe and sound."
 							]
-
+						},
+						{
+							head: false,
+							side: 1,
+							lines: [
+								"You partied at the Easter Bunny's House last night. Find it and your collect the eggs you left, you silly rabbit."
+							]
 						}
 
 					],
@@ -227,7 +250,8 @@ define(
 					{x:515, y:250},
 					{x:625, y:250}],
 				items: 3,
-				loseTime: 30
+				loseTime: 30,
+				tolerance: 30
 			},
 
 			frogger: {
