@@ -18,7 +18,7 @@ define(
 			this.backgroundImage = new P.Sprite(P.Texture.fromImage("mini-game1/bg.png"));
 			this.callBack = function () {
 				sound.switchMusic(this.musicCache);
-				callBack.apply(arguments);
+				callBack.apply(this, arguments);
 			}.bind(this);
 			this.cursor = new P.Sprite(P.Texture.fromImage("mini-game1/cursor.png"));
 			this.cursorCounter = 0;

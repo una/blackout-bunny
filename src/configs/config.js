@@ -186,7 +186,7 @@ define(
 					{x:515, y:250},
 					{x:625, y:250}],
 				items: 3,
-				loseTime: 30
+				loseTime: 5
 			},
 			
 

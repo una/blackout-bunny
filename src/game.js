@@ -106,6 +106,8 @@ define(
 					this.bunny.position.x = config.startX;
 					this.bunny.position.y = config.startY;
 					this.doneIntro = false;
+					// sound.switchMusic("assets/src/Music/OverworldSober.mp3");
+					this.renderer.view.className = "";
 				}
 				this.bunny.update(function () {
 
