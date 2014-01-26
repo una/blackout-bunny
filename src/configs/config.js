@@ -269,7 +269,7 @@ define(
 
 				sheepFrameDelay: 6,
 				minSheepSpeed: 0.5,
-				maxSheepSpeed: 3,
+				maxSheepSpeed: 2.5,
 
 				sheepCount: 12
 			},

@@ -17,7 +17,7 @@ define(
 	function (P, _, config, keys, sound, Bunny, Dialog) {
 		function Game () {
 			
-			this.progress = 0;
+			this.progress = 1;
 			this.drunk = 0;
 			this.firstTimeDrunk = true;
 
