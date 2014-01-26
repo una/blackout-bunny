@@ -12,6 +12,8 @@ define(
 			frameDelay: 5,
 			legHeight: 35, 
 			legXOffset: 10,
+			startX: 200,
+			startY: 500,
 
 			//World construction
 			tileWidth: 32,
@@ -114,7 +116,57 @@ define(
 								"The whole place is trashed! Either you clean up or I call the police!"
 							]
 						}
-					]
+					],
+
+					karrotkingOutroDrunk1: [
+						{
+							head: "dialog/bunny_closed.png",
+							side: 0,
+							lines: [
+								"I am feeling a little sick...."
+							]
+
+						}
+
+					],
+
+					karrotkingOutroDrunk2: [
+						{
+							head: "dialog/bunny_closed.png",
+							side: 0,
+							lines: [
+								"I should really find my wallet soon, I'm getting worse!"
+							]
+
+						}
+
+					],
+
+					karrotkingOutroDrunk3: [
+						{
+							head: "dialog/bunny_closed.png",
+							side: 0,
+							lines: [
+								"I'm gonna pass out!"
+							]
+
+						}
+
+					],
+
+					karrotkingOutroWin: [
+						{
+							head: "dialog/bunny_closed.png",
+							side: 0,
+							lines: [
+								"I found a feather while I was cleaning up, I guess I was at the farm last night?"
+							]
+
+						}
+
+					],
+
+
 					
 				}
 
