@@ -3,10 +3,11 @@ define(
 		"pixi",
 		"config",
 		"../util/keys",
-		"./minigame"
+		"./minigame",
+		"../dialog"
 	],
 
-	function(P, config, keys, Minigame){
+	function(P, config, keys, Minigame, Dialog) {
 		function puzzleGame(renderer, drunk, callBack){
 			Minigame.apply(this, arguments);
 
@@ -166,7 +167,7 @@ define(
 			this.puzzleForeground = new P.DisplayObjectContainer();
 			this.puzzleStage = new P.Stage();
 			this.puzzleStage.addChild(this.puzzleBackground);
-//			this.puzzleStage.addChild(this.puzzleForeground);
+			//			this.puzzleStage.addChild(this.puzzleForeground);
 
 			this.puzzleBackground.addChild(this.backgroundImage);
 
@@ -175,21 +176,25 @@ define(
 			this.cursor.position.x = -999;
 			this.cursor.position.y = -999;
 
-			//Add items
-			for(var ii = 0; ii< this.items.length; ii++){
-				// this.items[ii].position = new P.Point(this.items[ii].spot.x, this.items[ii].spot.y);
+			(new Dialog("karrotking", this.puzzleStage, this.renderer, function () {
+				
+				
+				//Add items
+				for(var ii = 0; ii< this.items.length; ii++){
+					// this.items[ii].position = new P.Point(this.items[ii].spot.x, this.items[ii].spot.y);
 
-				this.items[ii].position.x = this.items[ii].spot.x;
-				this.items[ii].position.y = this.items[ii].spot.y;
+					this.items[ii].position.x = this.items[ii].spot.x;
+					this.items[ii].position.y = this.items[ii].spot.y;
 
-				this.puzzleBackground.addChild(this.items[ii]);
-			}
+					this.puzzleBackground.addChild(this.items[ii]);
+				}
 
-			this.renderer.render(this.puzzleStage);
+				this.renderer.render(this.puzzleStage);
 
-			return window.setTimeout(function () {
-				return this.displayPlayerView(next)
-			}.bind(this), 3000);
+				return window.setTimeout(function () {
+					return this.displayPlayerView(next)
+				}.bind(this), 3000);
+			}.bind(this))).start();
 		}
 
 		puzzleGame.prototype.displayPlayerView = function (next) {
