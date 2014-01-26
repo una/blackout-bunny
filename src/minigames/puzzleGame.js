@@ -16,6 +16,9 @@ define(
 			this.callBack = callBack;
 			this.cursor = new P.Sprite(P.Texture.fromImage("mini-game1/cursor.png"));
 			this.cursorCounter = 0;
+			this.text = new P.Text("0000",{font: 'bold 40px Avro', fill: 'black', align: 'center'});
+			this.text.position.x = config.width/2;
+			this.text.position.y = 50;
 
 		}
 
@@ -29,6 +32,10 @@ define(
 		}
 
 		puzzleGame.prototype.animate = function () {
+
+			this.timer = config.puzzle.loseTime - Math.ceil((Date.now()/1000) - this.startTime);
+			this.text.setText(this.timer);
+
 			this.renderer.render(this.puzzleStage);
 
 			this.cursor.position.x = this.items[this.cursorCounter].position.x-5;
@@ -177,11 +184,12 @@ define(
 
 				return window.setTimeout(function(){
 					for(var ii=0;ii< this.items.length;ii++){
-						this.items[ii].position = new P.Point((Math.random()*300)+500, Math.random()*250);
+						this.items[ii].position = new P.Point((Math.random()*300)+500, config.height - Math.random()*250);
 					}
 
 					//Kick off the real game
 					this.startTime = (Date.now()/1000);
+					this.puzzleStage.addChild(this.text);
 					return next();
 				}.bind(this), 1000);
 			}.bind(this), 1000);
