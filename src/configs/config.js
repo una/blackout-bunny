@@ -50,7 +50,7 @@ define(
 							head: false,
 							side: 1,
 							lines: [
-								"*?!^&@$$, what happened last night? You blacked out again... (press spacebar to continue)"
+								"You blacked out again...*?!^&@$$, what happened last night? (press spacebar to continue)"
 							]
 						},
 						{
@@ -68,8 +68,8 @@ define(
 							]
 						},
 						{
-							head: false,
-							// head: "dialog/arrows.png",
+							
+							head: "dialog/arrows.png",
 							side: 1,
 							lines: [
 								"(Use the arrow keys to navigate to Karrot King)"
@@ -130,16 +130,14 @@ define(
 						},
 				
 						{
-							head: false,
-							// head: "dialog/holding_photo.png",
+							head: "dialog/holding_photo.png",
 							side: 1,
 							lines: [
 								"You're about to see an image of what the store SHOULD look like. Remember it, and rearrange the pieces in the correct location."
 							]
 						},						
 						{
-							head: false,
-							// head: "dialog/mini1_instruction.png",
+							head: "dialog/mini1_instruction.png",
 							side: 1,
 							lines: [
 								"Use spacebar to change the item you are controlling. The arrow keys move the item around the screen.",
