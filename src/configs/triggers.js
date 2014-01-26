@@ -3,9 +3,29 @@ define(
 		"config",
 		"../util/sound",
 		"../minigames/puzzleGame",
+		"../minigames/frogger",
 		"../dialog"
 	],
-	function (config, sound, Puzzle, Dialog) {
+	function (config, sound, Puzzle, Frogger, Dialog) {
+		function minigameLost (game, next) {
+			var musicUrl = "assets/src/Music/OverworldDrunk" + game.drunk + ".mp3";
+			game.drunk++;
+			game.renderer.view.className = "drunk" + game.drunk;
+
+			if(game.drunk <= 3) {
+				return (new Dialog("karrotkingOutroDrunk" + game.drunk, game.stage, game.renderer, function(){
+
+					sound.loadSound(musicUrl, function () {
+						sound.switchMusic(musicUrl);
+					});
+					next();
+				})).start();
+			}
+			else {
+				return next();
+			}
+		};
+
 		config.triggers = {
 			"10,17": function (game, next) {
 				if (game.progress > 0)
@@ -15,42 +35,7 @@ define(
 						game.bunny.position.y = 11*config.tileHeight;
 						game.bunny.position.x = 16*config.tileWidth;
 						if(result){
-							game.drunk++;
-							var musicUrl = "assets/src/Music/OverworldDrunk" + game.drunk + ".mp3";
-							if(game.drunk == 1){
-								(new Dialog("karrotkingOutroDrunk1", game.stage, game.renderer, function(){
-
-
-									sound.loadSound(musicUrl, function () {
-										sound.switchMusic(musicUrl);
-									});
-									next();
-								})).start();
-
-
-							}
-							else if(game.drunk == 2){
-
-								(new Dialog("karrotkingOutroDrunk2", game.stage, game.renderer, function(){
-									sound.loadSound(musicUrl, function () {
-										sound.switchMusic(musicUrl);
-									});
-									next();
-								})).start();
-							}
-							else if(game.drunk == 3){
-								(new Dialog("karrotkingOutroDrunk3", game.stage, game.renderer, function(){
-									sound.loadSound(musicUrl, function () {
-										sound.switchMusic(musicUrl);
-									});
-									next();
-								})).start();
-							}
-							else if(game.drunk > 3){
-								return next();
-							}
-							game.renderer.view.className = "drunk" + game.drunk;
-
+							minigameLost(game, next);
 						}
 						else {
 							game.progress++;
@@ -59,11 +44,39 @@ define(
 							})).start();
 							
 						}
-
-
 					})).start();
 				}
+			},
+
+			"8,97": function (game, next) {
+				if (game.progress == 1) {
+					(new Frogger(game.renderer, game.drunk, function(result){
+						console.log("Done Frogger: " + result);
+						game.bunny.position.y = 11*config.tileHeight;
+						game.bunny.position.x = 16*config.tileWidth;
+						if(result){
+							return minigameLost(game, next);
+						}
+						else {
+							game.progress++;
+							return (new Dialog("froggerOutroWin", game.stage, game.renderer, function(){
+								next();
+							})).start();
+							
+						}
+					})).start();
+				}
+				else if (game.progress == 2) {
+
+					//Jump straight to egg hunt
+					next();
+
+				}
+				else {
+					next();
+				}
 			}
+
 		};
 	}
 );
