@@ -83,8 +83,8 @@ define(
 					this.debounceSpace = true;
 					
 					var li = this.cursor.linkedItem;
-					if(Math.abs(li.position.x - li.spot.x) < 20
-					   && Math.abs(li.position.y - li.spot.y) < 20){
+					if(Math.abs(li.position.x - li.spot.x) < config.puzzle.tolerance
+					   && Math.abs(li.position.y - li.spot.y) < config.puzzle.tolerance){
 						console.log("CORRECT SPOT!");
 						li.placed = true;
 						li.position.x = li.spot.x;

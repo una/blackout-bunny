@@ -83,7 +83,7 @@ define(
 								this.text.position.x =
 									script.side
 									? config.dialog.marginLeft
-									: config.width - this.head.width - config.dialog.marginLeft  + 90;
+									: config.width - this.head.width - config.dialog.marginLeft + 90;
 							}
 
 							//Show next line
