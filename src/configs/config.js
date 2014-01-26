@@ -50,7 +50,7 @@ define(
 							head: false,
 							side: 1,
 							lines: [
-								"You blacked out again..."
+								"You blacked out again... (press spacebar to continue)"
 							]
 						},
 						{
