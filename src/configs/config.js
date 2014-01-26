@@ -26,7 +26,6 @@ define(
 				84: true,
 				67: true,
 				68: true,
-				69: true,
 			},
 
 			dialog: {

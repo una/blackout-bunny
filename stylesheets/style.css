@@ -1,6 +1,17 @@
 body {
 	background: black;
 	text-align: center;
+	perspective: 200px;
+	-moz-perspective: 200px;
+	-ms-perspective: 200px;
+	-o-perspective: 200px;
+	-webkit-perspective: 200px;
+
+	transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
 }
 
 img {
@@ -9,8 +20,8 @@ img {
 
 .logo {
 	background-image: url('../images/bb-logo-white.png');
-	width: 400px;
-	height: 170px;
+	width: 300px;
+	height: 100px;
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin: 20px 40px 40px 20px;
@@ -34,6 +45,105 @@ img {
 	padding: 0.2em;
 }
 
-.start-button:HOVER {
+.start-button:hover {
 	background-color: #9e1e62;
 }
+
+#bunnyCanvas:before {
+	content: "hi";
+}
+
+@-webkit-keyframes drunk-3 {
+  0% {      
+			transform: rotate3d(-5,1,10,15deg);
+			-moz-transform: rotate3d(-5,1,10,15deg);
+			-ms-transform: rotate3d(-5,1,10,15deg);
+			-o-transform: rotate3d(-5,1,10,15deg);
+			-webkit-transform: rotate3d(-5,1,10,15deg);
+			opacity: 0.9;
+  }
+ 40% {      transform: rotate3d(20,1,-50,-10deg);
+			-moz-transform: rotate3d(20,1,-50,-10deg);
+			-ms-transform: rotate3d(20,1,-50,-10deg);
+			-o-transform: rotate3d(20,1,-50,-10deg);
+			-webkit-transform: rotate3d(20,1,-50,-10deg);
+			opacity: 0.2;
+  }
+  45% {
+  			opacity: 1;
+  }
+50% {
+		opacity: 0.1;
+}
+  100% {    transform: rotate3d(10,1,0,-3deg);
+			-moz-transform: rotate3d(10,1,0,-3deg);
+			-ms-transform: rotate3d(10,1,0,-3deg);
+			-o-transform: rotate3d(10,1,0,-3deg);
+			-webkit-transform: rotate3d(10,1,0,-3deg);
+			opacity: 0.7;
+  }
+}
+
+@-webkit-keyframes drunk-2 {
+  0% {      
+			transform: rotate3d(0,1,10,5deg);
+			-moz-transform: rotate3d(0,1,10,5deg);
+			-ms-transform: rotate3d(0,1,10,5deg);
+			-o-transform: rotate3d(0,1,10,5deg);
+			-webkit-transform: rotate3d(0,1,10,5deg);
+			    opacity: 1;
+  }
+  60% {            transform: rotate3d(0,1,-50,-10deg);
+			-moz-transform: rotate3d(0,1,-50,-10deg);
+			-ms-transform: rotate3d(0,1,-50,-10deg);
+			-o-transform: rotate3d(0,1,-50,-10deg);
+			-webkit-transform: rotate3d(0,1,-50,-10deg);
+      		opacity: 0.4;
+  }
+  100% {    transform: rotate3d(0,1,0,0deg);
+			-moz-transform: rotate3d(0,1,0,0deg);
+			-ms-transform: rotate3d(0,1,0,0deg);
+			-o-transform: rotate3d(0,1,0,0deg);
+			-webkit-transform: rotate3d(0,1,0,0deg);
+      opacity: 1;
+  }
+}
+
+.drunk1 {
+
+	-webkit-animation: drunk-2 5s infinite;
+	-moz-animation:    drunk-2 5s infinite;
+	-o-animation:      drunk-2 5s infinite;
+	animation:         drunk-2 5s infinite;
+	
+	animation-direction:alternate;
+	-webkit-animation-direction:alternate; 
+}  
+
+.drunk2 {
+
+	-webkit-animation: drunk-2 5s infinite;
+	-moz-animation:    drunk-2 5s infinite;
+	-o-animation:      drunk-2 5s infinite;
+	animation:         drunk-2 5s infinite;
+	
+	animation-direction:alternate;
+	-webkit-animation-direction:alternate; 
+}        
+
+.drunk3 {
+
+	-webkit-animation: drunk-3 3s infinite;
+	-moz-animation:    drunk-3 3s infinite;
+	-o-animation:      drunk-3 3s infinite;
+	animation:         drunk-3 3s infinite;
+	
+	animation-direction:alternate;
+	-webkit-animation-direction:alternate; 
+}        
+
+#bunnyCanvas {
+	width:800px;
+	height:600px;
+}
+
