@@ -90,7 +90,7 @@ define(
 				this.gameState = true;
 				this.gameOver = true;
 			}
-			else if(this.startTime - (Date.now()/1000) > 30){
+			else if((Date.now()/1000) - this.startTime> config.puzzle.loseTime){
 				this.gameState = false;
 				this.gameOver = true;
 			}
@@ -115,7 +115,7 @@ define(
 				inList = false;
 				for(ii = 0; ii <this.spots.length;ii++){
 
-					if(this.spots[ii].id == tempSpot){
+					if(this.spots[ii] == config.puzzle.spots[tempSpot]){
 						inList = true;
 						break;
 					}
