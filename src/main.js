@@ -46,12 +46,17 @@ define(
 			document.getElementById("Play").className = "";
 		};
 
-		var musicCount = 5;
-		_.each(["OverworldSober", "OverworldDrunk1", "OverworldDrunk2", "OverworldDrunk3", "MinigameSober"], function (f) {
+		var musics = ["OverworldSober", "OverworldDrunk1", "OverworldDrunk2", "OverworldDrunk3", "MinigameSober"],
+		    musicCount = 0;
+		
+		_.each(musics, function (f) {
 			sound.loadSound("assets/src/Music/" + f + ".mp3", function () {
-				if (--musicCount == 0) {
+				if (++musicCount == musics.length) {
 					document.getElementById("loadingText").innerHTML = "Loading images...";
 					loader.load();
+				}
+				else {
+					document.getElementById("loadingText").innerHTML = "Loading music (" + Math.floor((musicCount / musics.length) * 100) + "%)..."
 				}
 			});
 		});
