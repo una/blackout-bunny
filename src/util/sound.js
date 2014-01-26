@@ -69,6 +69,9 @@ define(
 			var ret = nowPlaying,
 			    newMusic;
 
+			if (url === ret)
+				return ret;
+			
 			if (currentMusic) {
 				currentMusic.stop(0);
 			}

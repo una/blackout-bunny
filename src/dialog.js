@@ -13,6 +13,7 @@ define(
 			this.stage.addChild(this.container);
 
 			this.textBg = new P.Sprite(P.Texture.fromImage("dialog/textBg.png"));
+			this.head = new P.Sprite(P.Texture.fromImage("dialog/lana_closed.png"));
 			this.text =
 				new P.Text("",
 				           {
@@ -20,24 +21,23 @@ define(
 					           fill: 'black',
 					           align: 'left',
 					           wordWrap: true,
-					           wordWrapWidth: config.width - (2 * config.dialog.marginLeft)
+					           wordWrapWidth: config.width - config.dialog.marginLeft - this.head.width
 				           }
 				          );
 
-			this.head = new P.Sprite(P.Texture.fromImage("dialog/lana_closed.png"));
 
 			this.textBg.position.x = 0;
-			this.textBg.position.y = config.height - 50 - (2 * config.dialog.marginBottom);
+			this.textBg.position.y = config.height - this.textBg.height - config.dialog.marginBottom;
 			
 			this.text.position.x = config.dialog.marginLeft;
-			this.text.position.y = config.height - 50 - config.dialog.marginBottom;
+			this.text.position.y = this.textBg.position.y + config.dialog.marginTop;
 
 			this.head.position.x = config.dialog.marginLeft;
-			this.head.position.y = config.height - 50 - config.dialog.marginBottom - (this.head.height * 0.8);
+			this.head.position.y = config.height - this.head.height - config.dialog.marginBottom;
 			
-			this.container.addChild(this.head);
 			this.container.addChild(this.textBg);
 			this.container.addChild(this.text);
+			this.container.addChild(this.head);
 			
 			this.renderer = renderer;
 			this.next = next;
@@ -77,8 +77,13 @@ define(
 								}
 								this.head.position.x =
 									script.side
-									? config.width - config.dialog.marginLeft - this.head.width
-									: config.dialog.marginLeft;
+									? config.width - this.head.width
+									: 0;
+
+								this.text.position.x =
+									script.side
+									? config.dialog.marginLeft
+									: config.width - this.head.width - config.dialog.marginLeft;
 							}
 
 							//Show next line

@@ -29,19 +29,20 @@ define(
 				66: true,
 				84: true,
 				67: true,
-				68: true,
+				68: true
 			},
 
 			dialog: {
-				marginLeft: 10,
-				marginBottom: 10,
+				marginLeft: 30,
+				marginBottom: 30,
+				marginTop: 30,
 
 				script: {
 
 					intro: [
 						{
 							head: false,
-							side: 0,
+							side: 1,
 							lines: [
 								"You blacked out again..."
 							]

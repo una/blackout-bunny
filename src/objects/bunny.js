@@ -9,7 +9,7 @@ define(
 	],
 	function (P, _, config, keys) {
 		function Bunny (game) {
-			P.Sprite.call(this, P.Texture.fromImage(this.assets[0][0]));
+			P.Sprite.call(this, P.Texture.fromImage(this.assets[2][0]));
 			this.game = game;
 			console.log("width: " + this.width, "height: " + this.height);
 		}
