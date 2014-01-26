@@ -114,17 +114,19 @@ define(
 				var natural = true;
 				var frameCount = 0;
 				if(this.drunk == 1){
-					if(this.firstTimeDrunk){
+					
+					if((Date.now()/1000)- (this.timer/1000) > 10){
+						natural =  false;
+						this.timer = Date.now();
+						if(this.firstTimeDrunk){
 						return (new Dialog("drunkStumble", this.stage, this.renderer, function(){
 							this.firstTimeDrunk = false;
 							window.requestAnimationFrame(frame.bind(this));
 						}.bind(this))).start();
-
 					}
-					if((Date.now()/1000)- (this.timer/1000) > 10){
-						natural =  false;
-						this.timer = Date.now();	
-					}
+						
+						
+				}
 						
 
 				}
