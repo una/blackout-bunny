@@ -1,11 +1,11 @@
 define(
 	[
-	"pixi",
-	"lodash",
+		"pixi",
+		"lodash",
 
-	"config",
+		"config",
 
-	"../util/keys"
+		"../util/keys"
 	],
 	function (P, _, config, keys) {
 		function Bunny (game) {
@@ -17,10 +17,10 @@ define(
 		Bunny.prototype = Object.create(P.Sprite.prototype);
 		_.extend(Bunny.prototype, {
 			assets: [
-			["char-sprites/sprite-b-1.png", "char-sprites/sprite-b-2.png"],
-			["char-sprites/sprite-r-1.png", "char-sprites/sprite-r-2.png", "char-sprites/sprite-r-3.png", "char-sprites/sprite-r-4.png"],
-			["char-sprites/sprite-f-1.png", "char-sprites/sprite-f-2.png"],
-			["char-sprites/sprite-l-1.png", "char-sprites/sprite-l-2.png", "char-sprites/sprite-l-3.png", "char-sprites/sprite-l-4.png"]
+				["char-sprites/sprite-b-1.png", "char-sprites/sprite-b-2.png"],
+				["char-sprites/sprite-r-1.png", "char-sprites/sprite-r-2.png", "char-sprites/sprite-r-3.png", "char-sprites/sprite-r-4.png"],
+				["char-sprites/sprite-f-1.png", "char-sprites/sprite-f-2.png"],
+				["char-sprites/sprite-l-1.png", "char-sprites/sprite-l-2.png", "char-sprites/sprite-l-3.png", "char-sprites/sprite-l-4.png"]
 			],
 			commands: ["left", "right", "up", "down"],
 
@@ -29,8 +29,8 @@ define(
 					x: 0,
 					y: 0
 				},
-				moving = false,
-				collision;
+				    moving = false,
+				    collision;
 
 				var directions;
 				
@@ -107,52 +107,50 @@ define(
 				
 			},
 
-			switchFrame: (function () {
-				var frameCounters = {},
-				frameDelay = 0;
+			switchFrame: function (dir) {
+				this.frameCounters = this.frameCounters || {};
+				this.frameDelay = this.frameDelay || 0;
 				
-				return function (dir) {
-					if (++frameDelay < config.frameDelay)
-						return;
+				if (++this.frameDelay < config.frameDelay)
+					return;
 
-					frameDelay = 0;
+				this.frameDelay = 0;
 
-					
-					frameCounters[dir] = frameCounters[dir] || 0
-					frameCounters[dir]++;
-					//					console.log(frameCounters[dir])
-					//					console.log(dir)
+				
+				this.frameCounters[dir] = this.frameCounters[dir] || 0
+				this.frameCounters[dir]++;
+				//					console.log(this.frameCounters[dir])
+				//					console.log(dir)
 
-					if (this.assets[dir].length <= frameCounters[dir]) {
-						frameCounters[dir] = 0;
-					}
-					
-					this.setTexture(P.Texture.fromImage(this.assets[dir][frameCounters[dir]]));
-				};
-			})(),
+				if (this.assets[dir].length <= this.frameCounters[dir]) {
+					this.frameCounters[dir] = 0;
+				}
+				
+				this.setTexture(P.Texture.fromImage(this.assets[dir][this.frameCounters[dir]]));
+			},
 			
 			checkCollision: function (newPos, next) {
 				var maxY = newPos.y + this.position.y + this.height,
-				minY = maxY - config.legHeight,
-				maxX = newPos.x + this.position.x + this.width - config.legXOffset,
-				minX = newPos.x + this.position.x + config.legXOffset,
+				    minY = maxY - config.legHeight,
+				    maxX = newPos.x + this.position.x + this.width - config.legXOffset,
+				    minX = newPos.x + this.position.x + config.legXOffset,
 
-				minRow = Math.floor(minY / config.tileHeight),
-				minCol = Math.floor(minX / config.tileWidth),
-				maxRow = Math.floor(maxY / config.tileHeight),
-				maxCol = Math.floor(maxX / config.tileWidth),
-				row = minRow,
-				col = minCol,
-				trigger;
+				    minRow = Math.floor(minY / config.tileHeight),
+				    minCol = Math.floor(minX / config.tileWidth),
+				    maxRow = Math.floor(maxY / config.tileHeight),
+				    maxCol = Math.floor(maxX / config.tileWidth),
+				    row = minRow,
+				    col = minCol,
+				    trigger;
 
 				
 				//				console.log(config.legHeight + ", " + maxY);
 				//				console.log(minRow + " - " + maxMinRow + ", " + col + " - " + maxCol);
 
 				if (minX < 0 ||
-					minY < 0 ||
-					maxX > (config.tileWidth * config.world[0].length) ||
-					maxY > (config.tileHeight * config.world.length))
+				    minY < 0 ||
+				    maxX > (config.tileWidth * config.world[0].length) ||
+				    maxY > (config.tileHeight * config.world.length))
 					return next(true);
 				
 				for (row = minRow; row <= maxRow; row++) {
@@ -185,8 +183,8 @@ define(
 			}
 		});
 
-return Bunny;
-}
+		return Bunny;
+	}
 );
 
 
