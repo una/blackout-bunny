@@ -162,11 +162,8 @@ img {
 		display: none;
 }
 
-#splash {
-		
-}
-
-#loadingText {
+#loadingText, #Play {
+		color: white;
 }
 
 .drunk0 {
