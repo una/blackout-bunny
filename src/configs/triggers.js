@@ -15,7 +15,10 @@ define(
 						if(result){
 							game.drunk++;
 							game.renderer.view.className = "drunk" + game.drunk;
+
 						}
+						else
+							game.progress++;
 						console.log("BEFORE X: " + game.bunny.position.x/config.tileWidth);
 						console.log("BEFORE Y: " + game.bunny.position.y/config.tileHeight);
 						game.bunny.position.y = 11*config.tileHeight;
