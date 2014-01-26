@@ -38,10 +38,6 @@ define(
 
 			this.renderer.render(this.puzzleStage);
 
-			this.cursor.position.x = this.items[this.cursorCounter].position.x-5;
-			this.cursor.position.y = this.items[this.cursorCounter].position.y-5;
-			this.cursor.linkedItem = this.items[this.cursorCounter];
-
 			if(keys["right"]){
 				if(!this.cursor.linkedItem.placed){
 					this.cursor.position.x += config.speed;
@@ -86,6 +82,20 @@ define(
 					if(this.cursorCounter >= this.items.length){
 						this.cursorCounter = 0;
 					}
+
+					//Move old item to background
+					this.puzzleForeground.removeChild(this.cursor.linkedItem);
+					this.puzzleBackground.addChild(this.cursor.linkedItem);
+
+					//Switch items
+					this.cursor.linkedItem = this.items[this.cursorCounter];
+					this.cursor.position.x = this.cursor.linkedItem.position.x - 5;
+					this.cursor.position.y = this.cursor.linkedItem.position.y - 5;
+
+					//Move new item to foreground
+					this.puzzleBackground.removeChild(this.cursor.linkedItem);
+					this.puzzleForeground.addChild(this.cursor.linkedItem);
+
 				}
 			}
 			
@@ -97,7 +107,7 @@ define(
 				this.gameState = true;
 				this.gameOver = true;
 			}
-			else if((Date.now()/1000) - this.startTime> config.puzzle.loseTime){
+			else if( (Date.now() / 1000) - this.startTime > config.puzzle.loseTime){
 				this.gameState = false;
 				this.gameOver = true;
 			}
@@ -141,7 +151,7 @@ define(
 		}
 
 		puzzleGame.prototype.checkPuzzle = function(){
-			for(var ii =0; ii< this.items.length;ii++){
+			for(var ii = 0; ii < this.items.length; ii++){
 				if(!this.items[ii].placed){
 					return false;
 				}
@@ -151,23 +161,27 @@ define(
 
 		puzzleGame.prototype.displayPuzzle = function (next) {
 
+			this.puzzleBackground = new P.DisplayObjectContainer();
+			this.puzzleForeground = new P.DisplayObjectContainer();
 			this.puzzleStage = new P.Stage();
+			this.puzzleStage.addChild(this.puzzleBackground);
+			this.puzzleStage.addChild(this.puzzleForeground);
 
-			//Add bg
-			this.puzzleStage.addChild(this.backgroundImage);
+			this.puzzleBackground.addChild(this.backgroundImage);
 
-			this.puzzleStage.addChild(this.cursor);
+			this.puzzleForeground.addChild(this.text);
+			this.puzzleForeground.addChild(this.cursor);
 			this.cursor.position.x = -999;
 			this.cursor.position.y = -999;
 
 			//Add items
-			for(var ii =0; ii< this.items.length; ii++){
+			for(var ii = 0; ii< this.items.length; ii++){
 				// this.items[ii].position = new P.Point(this.items[ii].spot.x, this.items[ii].spot.y);
 
 				this.items[ii].position.x = this.items[ii].spot.x;
 				this.items[ii].position.y = this.items[ii].spot.y;
 
-				this.puzzleStage.addChild(this.items[ii]);
+				this.puzzleBackground.addChild(this.items[ii]);
 			}
 
 			this.renderer.render(this.puzzleStage);
@@ -183,13 +197,23 @@ define(
 				this.renderer.render(this.flashStage);
 
 				return window.setTimeout(function(){
-					for(var ii=0;ii< this.items.length;ii++){
-						this.items[ii].position = new P.Point((Math.random()*300)+500, config.height - Math.random()*250);
+					for (var ii = 0; ii < this.items.length; ii++) {
+						this.items[ii].position.x = (Math.random() * 300) + 500;
+						this.items[ii].position.y =  Math.random() * 250;
 					}
 
+					//Switch items
+					this.cursor.linkedItem = this.items[this.cursorCounter];
+					this.cursor.position.x = this.cursor.linkedItem.position.x - 5;
+					this.cursor.position.y = this.cursor.linkedItem.position.y - 5;
+
+					//Move new item to foreground
+					this.puzzleBackground.removeChild(this.cursor.linkedItem);
+					this.puzzleForeground.addChild(this.cursor.linkedItem);
+					
 					//Kick off the real game
-					this.startTime = (Date.now()/1000);
-					this.puzzleStage.addChild(this.text);
+					this.startTime = (Date.now() / 1000);
+
 					return next();
 				}.bind(this), 1000);
 			}.bind(this), 1000);
@@ -202,7 +226,6 @@ define(
 		}
 
 		item.prototype = Object.create(P.Sprite.prototype);
-
 
 		return puzzleGame;
 		
