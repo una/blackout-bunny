@@ -17,8 +17,9 @@ define(
 	function (P, _, config, keys, sound, Bunny, Dialog) {
 		function Game () {
 			
-			this.progress = 0;
+			this.progress = 1;
 			this.drunk = 0;
+			this.firstTimeDrunk = true;
 
 			var el = document.createElement('canvas');
 			el.id = "bunnyCanvas";
@@ -106,9 +107,46 @@ define(
 					this.bunny.position.x = config.startX;
 					this.bunny.position.y = config.startY;
 					this.doneIntro = false;
-					// sound.switchMusic("assets/src/Music/OverworldSober.mp3");
+					sound.switchMusic("assets/src/Music/OverworldSober.mp3");
 					this.renderer.view.className = "drunk0";
+					this.firstTimeDrunk = true;
+
 				}
+
+				var natural = true;
+				var frameCount = 0;
+				if(this.drunk == 1){
+					
+					if((Date.now()/1000)- (this.timer/1000) > 10){
+						natural =  false;
+						this.timer = Date.now();
+						if(this.firstTimeDrunk){
+						return (new Dialog("drunkStumble", this.stage, this.renderer, function(){
+							this.firstTimeDrunk = false;
+							window.requestAnimationFrame(frame.bind(this));
+						}.bind(this))).start();
+					}
+						
+						
+				}
+						
+
+				}
+				else if(this.drunk == 2){
+					if((Date.now()/1000)- (this.timer/1000) > 7.5){
+						natural =  false;
+						this.timer = Date.now();	
+					}
+				}
+				else if(this.drunk == 3){
+					if((Date.now()/1000)- (this.timer/1000) > 5){
+						natural =  false;
+						this.timer = Date.now();	
+					}
+				}
+
+				frameCount++;
+
 				this.bunny.update(function () {
 
 					//Camera pan
@@ -132,7 +170,7 @@ define(
 					}
 					
 					return window.requestAnimationFrame(frame.bind(this));
-				}.bind(this));
+				}.bind(this), natural);
 			},
 
 			trigger: function (row, col, next) {

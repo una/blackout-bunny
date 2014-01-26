@@ -29,7 +29,7 @@ img {
 }
 
 .logo {
-	background-image: url('../images/bb-logo-white.png');
+	background-image: url('../assets/loader/bb-logo-white.png');
 	width: 300px;
 	height: 130px;
 	background-size: 100%;

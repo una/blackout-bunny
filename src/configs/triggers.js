@@ -14,7 +14,7 @@ define(
 
 			if(game.drunk <= 3) {
 				return (new Dialog("karrotkingOutroDrunk" + game.drunk, game.stage, game.renderer, function(){
-
+					game.timer = Date.now();
 					sound.loadSound(musicUrl, function () {
 						sound.switchMusic(musicUrl);
 					});
@@ -48,12 +48,12 @@ define(
 				}
 			},
 
-			"8,97": function (game, next) {
+			"8,80": function (game, next) {
 				if (game.progress == 1) {
 					(new Frogger(game.renderer, game.drunk, function(result){
 						console.log("Done Frogger: " + result);
-						game.bunny.position.y = 11*config.tileHeight;
-						game.bunny.position.x = 16*config.tileWidth;
+						game.bunny.position.y = 9*config.tileHeight;
+						game.bunny.position.x = 80*config.tileWidth;
 						if(result){
 							return minigameLost(game, next);
 						}
