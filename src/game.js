@@ -6,6 +6,7 @@ define(
 		"config",
 
 		"./util/keys",
+		"./util/sound",
 
 		"./objects/bunny",
 
@@ -13,7 +14,7 @@ define(
 		"./dialog",
 		"./configs/triggers"
 	],
-	function (P, _, config, keys, Bunny, Dialog) {
+	function (P, _, config, keys, sound, Bunny, Dialog) {
 		function Game () {
 			
 			this.progress = 0;
@@ -41,6 +42,12 @@ define(
 				),
 				    backgroundSprite;
 
+				//Launch main theme
+				var soberMusic = "assets/src/Music/OverworldSober.mp3";
+				sound.loadSound(soberMusic, function () {
+					sound.switchMusic(soberMusic);
+				});
+				
 				//Print background once
 				(function () {
 					var backgroundStage = new P.Stage(),
@@ -106,6 +113,10 @@ define(
 					if (!this.doneIntro) {
 						this.doneIntro = true;
 						return (new Dialog("intro", this.stage, this.renderer, function () {
+							var drunkMusic = "assets/src/Music/OverworldDrunk3.mp3";
+							sound.loadSound(drunkMusic, function () {
+								sound.switchMusic(drunkMusic);
+							});
 							window.requestAnimationFrame(frame.bind(this));
 						}.bind(this))).start();
 					}
