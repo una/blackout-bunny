@@ -49,7 +49,7 @@ define(
 
 							sprite = new P.Sprite(
 								P.Texture.fromImage(
-									"tile" + config.world[row][col] + ".png"
+									"tiles/tiles_" + config.world[row][col] + ".png"
 								)
 							);
 
@@ -67,8 +67,8 @@ define(
 
 				this.bunny = new Bunny(this)
 				
-				this.bunny.position.x = 200;
-				this.bunny.position.y = 100;
+				this.bunny.position.x = 200; //200
+				this.bunny.position.y = 500; //100
 
 
 				backgroundSprite = new P.Sprite(background);
