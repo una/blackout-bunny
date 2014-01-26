@@ -182,7 +182,7 @@ define(
 
 					karrotkingOutroWin: [
 						{
-							head: "dialog/feather.png",
+							head: "dialog/bunny_closed.png",
 							side: 0,
 							lines: [
 								"What's this feather? Did I visit the chicks from the farm last night?"
