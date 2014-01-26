@@ -6,7 +6,7 @@ define(
 	],
 	function (config, Puzzle, Dialog) {
 		config.triggers = {
-			"14,17": function (game, next) {
+			"11,18": function (game, next) {
 				if (game.progress > 0)
 					next();
 				else {

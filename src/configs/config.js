@@ -22,7 +22,11 @@ define(
 				87: true,
 				46: true,
 				45: true,
-				66: true
+				66: true,
+				84: true,
+				67: true,
+				68: true,
+				69: true,
 			},
 
 			dialog: {
