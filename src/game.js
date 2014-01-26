@@ -8,12 +8,16 @@ define(
 		"./util/keys",
 
 		"./objects/bunny",
-		"./configs/triggers"
 
+
+		"./dialog",
+		"./configs/triggers"
 	],
-	function (P, _, config, keys, Bunny) {
+	function (P, _, config, keys, Bunny, Dialog) {
 		function Game () {
+			
 			this.progress = 0;
+			this.drunk = 0;
 
 			this.renderer = new P.CanvasRenderer(config.width, config.height);
 			this.stage = new P.Stage();
@@ -30,7 +34,6 @@ define(
 			);
 		}
 		_.extend(Game.prototype, {
-			
 			start: function () {
 				//Init PIXI
 				var background = new P.RenderTexture(
@@ -101,8 +104,14 @@ define(
 
 					this.renderer.render(this.stage);
 
-//					console.log("frame");
-					window.requestAnimationFrame(frame.bind(this));
+					if (!this.doneIntro) {
+						this.doneIntro = true;
+						return (new Dialog("intro", this.stage, this.renderer, function () {
+							window.requestAnimationFrame(frame.bind(this));
+						}.bind(this))).start();
+					}
+					
+					return window.requestAnimationFrame(frame.bind(this));
 				}.bind(this));
 			},
 
@@ -118,7 +127,7 @@ define(
 			
 			returnFromMinigame: function (result, next) {
 				console.log(result);
-				this.progress++;
+				// this.progress++;
 				next();
 			}
 		})
