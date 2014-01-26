@@ -15,12 +15,14 @@ define(
 		"./configs/triggers"
 	],
 	function (P, _, config, keys, sound, Bunny, Dialog) {
-		function Game (renderer) {
+		function Game () {
 			
 			this.progress = 0;
 			this.drunk = 0;
 
-			this.renderer = renderer;
+			var el = document.createElement('canvas');
+			el.id = "bunnyCanvas";
+			this.renderer = new P.CanvasRenderer(config.width, config.height, el);
 			this.stage = new P.Stage();
 
 			this.background = new P.DisplayObjectContainer();
