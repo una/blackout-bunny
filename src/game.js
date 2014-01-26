@@ -125,10 +125,6 @@ define(
 					if (!this.doneIntro) {
 						this.doneIntro = true;
 						return (new Dialog("intro", this.stage, this.renderer, function () {
-							var drunkMusic = "assets/src/Music/OverworldDrunk3.mp3";
-							sound.loadSound(drunkMusic, function () {
-								sound.switchMusic(drunkMusic);
-							});
 							window.requestAnimationFrame(frame.bind(this));
 						}.bind(this))).start();
 					}

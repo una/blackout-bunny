@@ -3,11 +3,12 @@ define(
 		"pixi",
 		"config",
 		"../util/keys",
+		"../util/sound",
 		"./minigame",
 		"../dialog"
 	],
 
-	function(P, config, keys, Minigame, Dialog) {
+	function(P, config, keys, sound, Minigame, Dialog) {
 		function puzzleGame(renderer, drunk, callBack){
 			Minigame.apply(this, arguments);
 
@@ -15,7 +16,10 @@ define(
 			this.items = [];
 			this.drunk = drunk;
 			this.backgroundImage = new P.Sprite(P.Texture.fromImage("mini-game1/bg.png"));
-			this.callBack = callBack;
+			this.callBack = function () {
+				sound.switchMusic(this.musicCache);
+				callBack.apply(arguments);
+			}.bind(this);
 			this.cursor = new P.Sprite(P.Texture.fromImage("mini-game1/cursor.png"));
 			this.cursorCounter = 0;
 			this.text = new P.Text("0000",{font: 'bold 40px Avro', fill: 'black', align: 'center'});
@@ -27,6 +31,11 @@ define(
 		puzzleGame.prototype = new Minigame();
 
 		puzzleGame.prototype.start = function () {
+			var puzzleMusic = "assets/src/Music/MinigameSober.mp3";
+			sound.loadSound(puzzleMusic, function () {
+				this.musicCache = sound.switchMusic(puzzleMusic);
+			}.bind(this));
+
 			this.generatePuzzle();
 			return this.displayPuzzle(function () {
 				window.requestAnimationFrame(this.animate.bind(this))
