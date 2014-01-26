@@ -33,7 +33,7 @@ define(
 
 		puzzleGame.prototype.animate = function () {
 
-			this.timer = config.puzzle.loseTime - Math.ceil((Date.now()/1000) - this.startTime);
+			this.timer = config.puzzle.loseTime - Math.floor((Date.now()/1000) - this.startTime);
 			this.text.setText(this.timer);
 
 			this.renderer.render(this.puzzleStage);
@@ -165,7 +165,7 @@ define(
 			this.puzzleForeground = new P.DisplayObjectContainer();
 			this.puzzleStage = new P.Stage();
 			this.puzzleStage.addChild(this.puzzleBackground);
-			this.puzzleStage.addChild(this.puzzleForeground);
+//			this.puzzleStage.addChild(this.puzzleForeground);
 
 			this.puzzleBackground.addChild(this.backgroundImage);
 
@@ -214,6 +214,8 @@ define(
 					//Kick off the real game
 					this.startTime = (Date.now() / 1000);
 
+					this.puzzleStage.addChild(this.puzzleForeground);
+					
 					return next();
 				}.bind(this), 1000);
 			}.bind(this), 1000);
