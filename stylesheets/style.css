@@ -29,6 +29,7 @@ img {
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin: 20px 40px 40px 20px;
+	float: left;
 }
 
 @-webkit-keyframes drunk-3 {
@@ -149,6 +150,17 @@ img {
 			-webkit-transform: rotate3d(0,0,2,-3deg);
       opacity: 0.6;
   }
+}
+
+.hide {
+		display: none;
+}
+
+#splash {
+		position: absolute;		
+}
+
+#loadingText {
 }
 
 .drunk0 {
