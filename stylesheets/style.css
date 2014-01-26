@@ -18,6 +18,11 @@ canvas {
 	margin-top: -40px;
 }
 
+#splash {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
 img {
 	margin: 0 auto;
 }
@@ -29,7 +34,7 @@ img {
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin: 20px 40px 40px 20px;
-	float: left;
+	position: absolute;
 }
 
 @-webkit-keyframes drunk-3 {
