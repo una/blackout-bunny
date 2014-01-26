@@ -14,6 +14,10 @@ body {
 	-webkit-transform-style: preserve-3d;
 }
 
+canvas {
+	margin-top: -40px;
+}
+
 img {
 	margin: 0 auto;
 }
@@ -21,36 +25,10 @@ img {
 .logo {
 	background-image: url('../images/bb-logo-white.png');
 	width: 300px;
-	height: 100px;
+	height: 130px;
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin: 20px 40px 40px 20px;
-}
-
-.bunny-start {
-	width: 650px;
-	margin-top: -220px;
-}
-
-.start-button {
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	background-color: #ea4c88;
-	color: #eee;
-	width: 280px;
-	font-size: 2em;
-	border: none;
-	margin: 1em;
-	padding: 0.2em;
-}
-
-.start-button:hover {
-	background-color: #9e1e62;
-}
-
-#bunnyCanvas:before {
-	content: "hi";
 }
 
 @-webkit-keyframes drunk-3 {
@@ -62,29 +40,65 @@ img {
 			-webkit-transform: rotate3d(-5,1,10,15deg);
 			opacity: 0.9;
   }
- 40% {      transform: rotate3d(20,1,-50,-10deg);
-			-moz-transform: rotate3d(20,1,-50,-10deg);
-			-ms-transform: rotate3d(20,1,-50,-10deg);
-			-o-transform: rotate3d(20,1,-50,-10deg);
-			-webkit-transform: rotate3d(20,1,-50,-10deg);
+ 40% {      transform: rotate3d(20,1,-50, 5deg);
+			-moz-transform: rotate3d(20,1,-50, 5deg);
+			-ms-transform: rotate3d(20,1,-50, 5deg);
+			-o-transform: rotate3d(20,1,-50, 5deg);
+			-webkit-transform: rotate3d(20,1,-50, 5deg);
 			opacity: 0.2;
   }
   45% {
   			opacity: 1;
   }
-50% {
-		opacity: 0.1;
-}
-  100% {    transform: rotate3d(10,1,0,-3deg);
-			-moz-transform: rotate3d(10,1,0,-3deg);
-			-ms-transform: rotate3d(10,1,0,-3deg);
-			-o-transform: rotate3d(10,1,0,-3deg);
-			-webkit-transform: rotate3d(10,1,0,-3deg);
+	50% {
+			opacity: 0.1;
+			transform: rotate3d(10,1,30,-20deg);
+			-moz-transform: rotate3d(10,1,30,-20deg);
+			-ms-transform: rotate3d(10,1,30,-20deg);
+			-o-transform: rotate3d(10,1,30,-20deg);
+			-webkit-transform: rotate3d(10,1,30,-20deg);
+	}
+  55% {
+  			opacity: 0.7;
+  }
+	60% {
+			opacity: 0.1;
+	}
+  100% {    transform: rotate3d(10,1,0,5deg);
+			-moz-transform: rotate3d(10,1,0,5deg);
+			-ms-transform: rotate3d(10,1,0,5deg);
+			-o-transform: rotate3d(10,1,0,5deg);
+			-webkit-transform: rotate3d(10,1,0,5deg);
 			opacity: 0.7;
   }
 }
 
 @-webkit-keyframes drunk-2 {
+  0% {      
+			transform: rotate3d(10,1,10,20deg);
+			-moz-transform: rotate3d(10,1,10,20deg);
+			-ms-transform: rotate3d(10,1,10,20deg);
+			-o-transform: rotate3d(10,1,10,20deg);
+			-webkit-transform: rotate3d(10,1,10,20deg);
+			    opacity: 0.7;
+  }
+  65% {            transform: rotate3d(50,2,-20,-10deg);
+			-moz-transform: rotate3d(50,2,-20,-10deg);
+			-ms-transform: rotate3d(50,2,-20,-10deg);
+			-o-transform: rotate3d(50,2,-20,-10deg);
+			-webkit-transform: rotate3d(50,2,-20,-10deg);
+      		opacity: 0.2;
+  }
+  100% {    transform: rotate3d(-10,1,20,10deg);
+			-moz-transform: rotate3d(-10,1,20,10deg);
+			-ms-transform: rotate3d(-10,1,20,10deg);
+			-o-transform: rotate3d(-10,1,20,10deg);
+			-webkit-transform: rotate3d(-10,1,20,10deg);
+      opacity: 1;
+  }
+}
+
+@-webkit-keyframes drunk-1 {
   0% {      
 			transform: rotate3d(0,1,10,5deg);
 			-moz-transform: rotate3d(0,1,10,5deg);
@@ -93,35 +107,71 @@ img {
 			-webkit-transform: rotate3d(0,1,10,5deg);
 			    opacity: 1;
   }
-  60% {            transform: rotate3d(0,1,-50,-10deg);
-			-moz-transform: rotate3d(0,1,-50,-10deg);
-			-ms-transform: rotate3d(0,1,-50,-10deg);
-			-o-transform: rotate3d(0,1,-50,-10deg);
-			-webkit-transform: rotate3d(0,1,-50,-10deg);
-      		opacity: 0.4;
+  60% {            transform: rotate3d(0,1,-50,10deg);
+			-moz-transform: rotate3d(0,1,-50,10deg);
+			-ms-transform: rotate3d(0,1,-50,10deg);
+			-o-transform: rotate3d(0,1,-50,10deg);
+			-webkit-transform: rotate3d(0,1,-50,10deg);
+      		opacity: 0.5;
   }
-  100% {    transform: rotate3d(0,1,0,0deg);
-			-moz-transform: rotate3d(0,1,0,0deg);
-			-ms-transform: rotate3d(0,1,0,0deg);
-			-o-transform: rotate3d(0,1,0,0deg);
-			-webkit-transform: rotate3d(0,1,0,0deg);
+  100% {    transform: rotate3d(0,1,0,-10deg);
+			-moz-transform: rotate3d(0,1,0,-10deg);
+			-ms-transform: rotate3d(0,1,0,-10deg);
+			-o-transform: rotate3d(0,1,0,-10deg);
+			-webkit-transform: rotate3d(0,1,0,-10deg);
       opacity: 1;
   }
 }
 
-.drunk1 {
+@-webkit-keyframes drunk-0 {
+  0% {   
+  			transform: rotate3d(0,0,-2,2deg);
+  			-moz-transform: rotate3d(0,0,-2,2deg);
+  			-ms-transform: rotate3d(0,0,-2,2deg);
+  			-o-transform: rotate3d(0,0,-2,2deg);
+  			-webkit-transform: rotate3d(0,0,-2,2deg);
+        opacity: 0.9;   
+			
+  }
+  50% {    
+      transform: rotate3d(0,1,0,0deg);
+      -moz-transform: rotate3d(0,1,0,0deg);
+      -ms-transform: rotate3d(0,1,0,0deg);
+      -o-transform: rotate3d(0,1,0,0deg);
+      -webkit-transform: rotate3d(0,1,0,0deg);
+      opacity: 1;
+      
+  }
+  100% {    transform: rotate3d(0,0,2,-3deg);
+			-moz-transform: rotate3d(0,0,2,-3deg);
+			-ms-transform: rotate3d(0,0,2,-3deg);
+			-o-transform: rotate3d(0,0,2,-3deg);
+			-webkit-transform: rotate3d(0,0,2,-3deg);
+      opacity: 0.6;
+  }
+}
 
-	-webkit-animation: drunk-2 5s infinite;
-	-moz-animation:    drunk-2 5s infinite;
-	-o-animation:      drunk-2 5s infinite;
-	animation:         drunk-2 5s infinite;
+.drunk0 {
+	-webkit-animation: drunk-0 3s infinite;
+	-moz-animation:    drunk-0 3s infinite;
+	-o-animation:      drunk-0 3s infinite;
+	animation:         drunk-0 3s infinite;
+	
+	animation-direction:alternate;
+	-webkit-animation-direction:alternate; 
+}
+
+.drunk1 {
+	-webkit-animation: drunk-1 6s infinite;
+	-moz-animation:    drunk-1 6s infinite;
+	-o-animation:      drunk-1 6s infinite;
+	animation:         drunk-1 6s infinite;
 	
 	animation-direction:alternate;
 	-webkit-animation-direction:alternate; 
 }  
 
 .drunk2 {
-
 	-webkit-animation: drunk-2 5s infinite;
 	-moz-animation:    drunk-2 5s infinite;
 	-o-animation:      drunk-2 5s infinite;
@@ -132,18 +182,23 @@ img {
 }        
 
 .drunk3 {
-
-	-webkit-animation: drunk-3 3s infinite;
-	-moz-animation:    drunk-3 3s infinite;
-	-o-animation:      drunk-3 3s infinite;
-	animation:         drunk-3 3s infinite;
+	-webkit-animation: drunk-3 6s infinite;
+	-moz-animation:    drunk-3 6s infinite;
+	-o-animation:      drunk-3 6s infinite;
+	animation:         drunk-3 6s infinite;
 	
 	animation-direction:alternate;
 	-webkit-animation-direction:alternate; 
-}        
-
-#bunnyCanvas {
-	width:800px;
-	height:600px;
 }
 
+.instructions {
+	background-image: url('../images/arrow-keys.png');
+	top: 0px;
+	right: 20px;
+	position: absolute;
+	display: block;
+	width: 130px;
+	height: 130px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}

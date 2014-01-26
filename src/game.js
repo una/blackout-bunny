@@ -96,6 +96,15 @@ define(
 
 			frame: function frame (charSprite) {
 
+				if(this.drunk > 3){
+					console.log("RESETTING GAME");
+					this.drunk =0;
+					this.progress = 0;
+
+					this.bunny.position.x = config.startX;
+					this.bunny.position.y = config.startY;
+					this.doneIntro = false;
+				}
 				this.bunny.update(function () {
 
 					//Camera pan
