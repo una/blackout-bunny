@@ -19,6 +19,10 @@ define(
 			tileTypes: 132,
 			passableTiles: {
 				0: true,
+				83: true,
+				84: true,
+				85: true,
+				86: true,
 				87: true,
 				46: true,
 				45: true,
@@ -126,7 +130,7 @@ define(
 					{x:515, y:250},
 					{x:625, y:250}],
 				items: 3,
-				loseTime: 5
+				loseTime: 30
 			},
 			
 

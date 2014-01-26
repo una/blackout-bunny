@@ -38,6 +38,8 @@ define(
 			this.timer = config.puzzle.loseTime - Math.floor((Date.now()/1000) - this.startTime);
 			this.text.setText(this.timer);
 
+
+
 			this.renderer.render(this.puzzleStage);
 
 			if(keys["right"]){
@@ -167,8 +169,6 @@ define(
 			this.puzzleForeground = new P.DisplayObjectContainer();
 			this.puzzleStage = new P.Stage();
 			this.puzzleStage.addChild(this.puzzleBackground);
-			//			this.puzzleStage.addChild(this.puzzleForeground);
-
 			this.puzzleBackground.addChild(this.backgroundImage);
 
 			this.puzzleForeground.addChild(this.text);
@@ -204,8 +204,8 @@ define(
 
 				return window.setTimeout(function(){
 					for (var ii = 0; ii < this.items.length; ii++) {
-						this.items[ii].position.x = (Math.random() * 300) + 500;
-						this.items[ii].position.y =  Math.random() * 250;
+						this.items[ii].position.x = (Math.random() * 300) + 400;
+						this.items[ii].position.y =  config.height - (Math.random() * 250) - 75;
 					}
 
 					//Switch items
@@ -219,6 +219,11 @@ define(
 					
 					//Kick off the real game
 					this.startTime = (Date.now() / 1000);
+
+					this.timerWindow = new P.Sprite(P.Texture.fromImage("mini-game1/timer.png"));
+					this.timerWindow.position.x = (config.width/2) - (this.timerWindow.width/2);
+					this.timerWindow.position.y = 45;
+					this.puzzleStage.addChild(this.timerWindow);
 
 					this.puzzleStage.addChild(this.puzzleForeground);
 					

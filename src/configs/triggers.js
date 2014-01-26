@@ -6,7 +6,7 @@ define(
 	],
 	function (config, Puzzle, Dialog) {
 		config.triggers = {
-			"14,17": function (game, next) {
+			"10,17": function (game, next) {
 				if (game.progress > 0)
 					next();
 				else {
@@ -18,8 +18,8 @@ define(
 						}
 						console.log("BEFORE X: " + game.bunny.position.x/config.tileWidth);
 						console.log("BEFORE Y: " + game.bunny.position.y/config.tileHeight);
-						game.bunny.position.y = 15*config.tileHeight;
-						game.bunny.position.x = 17*config.tileWidth;
+						game.bunny.position.y = 11*config.tileHeight;
+						game.bunny.position.x = 16*config.tileWidth;
 
 						console.log("AFTER X: " + game.bunny.position.x/config.tileWidth);
 						console.log("AFTER Y: " + game.bunny.position.y/config.tileHeight);
