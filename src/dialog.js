@@ -17,7 +17,7 @@ define(
 			this.text =
 				new P.Text("",
 				           {
-					           font: 'bold 24px Hammersmith One',
+					           font: 'bold 18px Hammersmith One',
 					           fill: '#cc6699',
 					           align: 'left',
 					           wordWrap: true,
@@ -26,7 +26,7 @@ define(
 				          );
 
 
-			this.textBg.position.x = 0;
+			this.textBg.position.x = 100;
 			this.textBg.position.y = config.height - this.textBg.height - config.dialog.marginBottom;
 			
 			this.text.position.x = config.dialog.marginLeft;
@@ -83,7 +83,7 @@ define(
 								this.text.position.x =
 									script.side
 									? config.dialog.marginLeft
-									: config.width - this.head.width - config.dialog.marginLeft;
+									: config.width - this.head.width - config.dialog.marginLeft  + 90;
 							}
 
 							//Show next line
