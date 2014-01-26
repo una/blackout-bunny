@@ -20,7 +20,10 @@ define(
 			this.progress = 0;
 			this.drunk = 0;
 
-			this.renderer = new P.CanvasRenderer(config.width, config.height);
+			var el = document.createElement('canvas');
+			el.id = "bunnyCanvas";
+			
+			this.renderer = new P.CanvasRenderer(config.width, config.height, el);
 			this.stage = new P.Stage();
 
 			this.background = new P.DisplayObjectContainer();

@@ -5,6 +5,7 @@ images/
 node_modules/
 bower_components/
 assets/
+assets
 
 #Emacs clutter
 *~
