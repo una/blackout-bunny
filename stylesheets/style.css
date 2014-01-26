@@ -15,13 +15,13 @@ body {
 	-webkit-transform-style: preserve-3d;
 }
 
-canvas {
-	margin-top: -40px;
-}
-
 #splash {
 	max-width: 600px;
 	margin: 0 auto;
+}
+
+canvas {
+	margin-top: 40px;
 }
 
 img {
@@ -216,4 +216,34 @@ img {
 	height: 130px;
 	background-repeat: no-repeat;
 	background-size: 100%;
+}
+
+#loadingText, 
+#Play {
+	-webkit-transition-duration: 0.8s;
+	-moz-transition-duration: 0.8s;
+	-o-transition-duration: 0.8s;
+	transition-duration: 0.8s;
+	color: white;
+	font-family: Hammersmith One;
+	text-align: center;
+	margin: 0 auto;
+	font-size: 1.2em;
+	padding: 0.3em;
+	position: absolute;
+	right: 0;
+	left: 0;
+	border-radius: 15px;
+	width: 20%;
+	top: 600px;
+}
+
+#Play {
+	cursor: pointer;
+	background: #e56da4;
+	font-size: 2.2em;
+}
+
+#Play:hover {
+	background: #9e1e62;
 }

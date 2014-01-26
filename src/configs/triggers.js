@@ -48,27 +48,6 @@ define(
 				}
 			},
 
-			"1,1": function (game, next) {
-				if (game.progress > 0)
-					next();
-				else {
-					(new Snake(game.renderer, game.drunk, function(result){
-						game.bunny.position.y = 11*config.tileHeight;
-						game.bunny.position.x = 16*config.tileWidth;
-						if(result){
-							minigameLost(game, next);
-						}
-						else {
-							game.progress++;
-							(new Dialog("karrotkingOutroWin", game.stage, game.renderer, function(){
-								next();
-							})).start();
-							
-						}
-					})).start();
-				}
-			},
-
 			"8,97": function (game, next) {
 				if (game.progress == 1) {
 					(new Frogger(game.renderer, game.drunk, function(result){
