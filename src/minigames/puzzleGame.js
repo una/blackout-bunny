@@ -28,7 +28,7 @@ define(
 			}.bind(this));
 		}
 
-		puzzleGame.prototype.animate = function(){
+		puzzleGame.prototype.animate = function () {
 			this.renderer.render(this.puzzleStage);
 
 			this.cursor.position.x = this.items[this.cursorCounter].position.x-5;
@@ -62,23 +62,30 @@ define(
 				}
 				
 			}
-			else if(keys["space"]){
-				var li = this.cursor.linkedItem;
-				if(Math.abs(li.position.x - li.spot.x) < 20
-				   && Math.abs(li.position.y - li.spot.y) < 20){
-					console.log("CORRECT SPOT!");
-					li.placed = true;
-					li.position.x = li.spot.x;
-					li.position.y = li.spot.y;
-				}
+			else if(keys["space"]) {
+				if (!this.debounceSpace) {
+					this.debounceSpace = true;
+					
+					var li = this.cursor.linkedItem;
+					if(Math.abs(li.position.x - li.spot.x) < 20
+					   && Math.abs(li.position.y - li.spot.y) < 20){
+						console.log("CORRECT SPOT!");
+						li.placed = true;
+						li.position.x = li.spot.x;
+						li.position.y = li.spot.y;
+					}
 
-				this.cursorCounter++;
-				if(this.cursorCounter >= this.items.length){
-					this.cursorCounter = 0;
+					this.cursorCounter++;
+					if(this.cursorCounter >= this.items.length){
+						this.cursorCounter = 0;
+					}
 				}
-
 			}
-
+			
+			if (!keys["space"]) {
+				this.debounceSpace = false;
+			}
+			
 			if(this.checkPuzzle()){
 				this.gameState = true;
 				this.gameOver = true;
@@ -88,30 +95,27 @@ define(
 				this.gameOver = true;
 			}
 
-
-
 			if(this.gameOver)
-			{
 				return this.callBack(this.gameState);
-			}
 			else
 				return window.requestAnimationFrame(this.animate.bind(this));
 		};
 
-
-
 		puzzleGame.prototype.generatePuzzle = function(){
-
 
 			//First generate the possible positions that can be filled, so:
 			//There are 10 possible spots, of which 7 will be used
-			var spotCounter = 0;
-			while(spotCounter < 7){
-				var tempSpot = Math.floor(Math.random()*10);
-				var inList = false;
-				for(var i = 0; i <this.spots.length;i++){
+			var spotCounter = 0,
+			    tempSpot,
+			    inList,
+			    ii;
+			
+			while (spotCounter < config.puzzle.items) {
+				tempSpot = Math.floor(Math.random()*10);
+				inList = false;
+				for(ii = 0; ii <this.spots.length;ii++){
 
-					if(this.spots[i].id == tempSpot){
+					if(this.spots[ii].id == tempSpot){
 						inList = true;
 						break;
 					}
@@ -167,11 +171,11 @@ define(
 		}
 
 		puzzleGame.prototype.displayPlayerView = function (next) {
-			return setTimeout(function(){
+			return window.setTimeout(function(){
 				this.flashStage = new P.Stage(0x000000);
 				this.renderer.render(this.flashStage);
 
-				return setTimeout(function(){
+				return window.setTimeout(function(){
 					for(var ii=0;ii< this.items.length;ii++){
 						this.items[ii].position = new P.Point((Math.random()*300)+500, Math.random()*250);
 					}
