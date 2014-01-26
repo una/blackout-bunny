@@ -50,6 +50,11 @@ define(
 					this.switchFrame(2);
 					moving = true;
 				}
+				else if(keys["space"]) {
+					var row = Math.floor(this.position.y / config.tileHeight),
+					    col = Math.floor(this.position.x / config.tileWidth);
+					console.log(row + ", " + col + ", " + config.world[row][col]);
+				}
 
 				if (moving) {
 					this.checkCollision(newPos, function (collided) {

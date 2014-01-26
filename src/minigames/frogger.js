@@ -10,8 +10,9 @@ define(
 		"./froggerBunny"
 	],
 	function (P, _, config, keys, sound, FroggerBunny) {
-		function Frogger (renderer, next) {
+		function Frogger (renderer, drunk, next) {
 			this.next = next;
+			this.drunk = drunk;
 
 			this.renderer = renderer;
 			this.stage = new P.Stage();
@@ -26,15 +27,24 @@ define(
 		_.extend(Frogger.prototype, {
 
 			start: function () {
-//				this.musicCache = sound.switchMusic("assets/src/Music/MinigameSober.mp3");
-
-				console.log("Starting Frogger");
-				this.next();
+				var ii;
 				
+				this.musicCache = sound.switchMusic("assets/src/Music/MinigameSober.mp3");
+				for (ii = 0; ii < config.frogger.eggs + this.drunk; ii++) {
+					this.eggs.push(new Egg());
+					this.eggs[ii].position.y = 5;
+//					this.eggs[ii].position.x =
+//						((3 * (ii + 1)) % 7) * 
+				}
+				
+
+				window.requestAnimationFrame(this.frame.bind(this));
 			},
 
 			frame: function () {
+				this.renderer.render(this.stage);
 
+				window.requestAnimationFrame(this.frame.bind(this));
 			}
 
 		});
