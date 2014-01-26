@@ -50,6 +50,7 @@ define(
 			this.eggs = [];
 
 			this.bunny = new FroggerBunny(this);
+			this.bunny.position.y = config.height - this.bunny.height - 5;
 		}
 
 		_.extend(Frogger.prototype, {
