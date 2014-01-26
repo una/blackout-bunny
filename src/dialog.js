@@ -17,8 +17,8 @@ define(
 			this.text =
 				new P.Text("",
 				           {
-					           font: 'bold 24px Avro',
-					           fill: 'black',
+					           font: 'bold 24px Hammersmith One',
+					           fill: '#cc6699',
 					           align: 'left',
 					           wordWrap: true,
 					           wordWrapWidth: config.width - config.dialog.marginLeft - this.head.width
