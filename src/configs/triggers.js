@@ -1,7 +1,7 @@
 define(
 	[
 		"config",
-		"./minigames/puzzleGame"
+		"../minigames/puzzleGame"
 	],
 	function (config, Puzzle) {
 		config.triggers = {

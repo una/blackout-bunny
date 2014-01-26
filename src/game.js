@@ -8,7 +8,7 @@ define(
 		"./util/keys",
 
 		"./objects/bunny",
-		"./triggers"
+		"./configs/triggers"
 
 	],
 	function (P, _, config, keys, Bunny) {
