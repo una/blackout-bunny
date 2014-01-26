@@ -169,6 +169,42 @@ define(
 
 					],
 
+					froggerOutroWin: [
+						{
+							head: "dialog/bunny_closed.png",
+							side: 0,
+							lines: [
+								"Great, now I can go ask this chicken about my wallet!"
+							]
+
+						},
+						{
+
+							head: "dialog/lana_closed.png",
+							side: 1,
+							lines: [
+								"HOW DARE YOU COME BACK HERE!"
+							]
+
+						},
+						{
+							head: "dialog/bunny_open.png",
+							side: 0,
+							lines: [
+								"Look, I am drunk and looking for my wallet. Have you seen it?"
+							]
+						},
+						{
+							head: "dialog/lana_open.png",
+							side: 1,
+							lines: [
+								"But YOU are the one who stole all my precious eggs!"
+							]
+
+						}
+
+					],
+
 
 					
 				}
