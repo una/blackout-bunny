@@ -205,6 +205,17 @@ define(
 
 					],
 
+				drunkStumble: [
+					{
+						head: "dialog/bunny_open.png",
+						side: 0,
+						lines: [
+							"Jeez, I can barely walk straight!"
+
+						]
+					}
+				],
+
 
 					
 				}
