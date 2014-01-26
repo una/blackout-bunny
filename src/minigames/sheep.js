@@ -17,13 +17,15 @@ define(
 			],
 			
 			init: function () {
+				console.log("Restarting a sheep.");
+				console.log(this.frameDelay);
 				//0 or 1
 				this.direction = Math.round(Math.random());
 
 				this.position.x =
 					this.direction
-					? (0 - this.width)
-					: config.width;
+					? config.width
+					: (0 - this.width);
 				this.position.y = Math.floor(Math.random() * 8) * 53 + 119;
 				
 				this.speed = Math.floor(Math.random() * config.frogger.maxSheepSpeed) + config.frogger.minSheepSpeed;
@@ -32,7 +34,7 @@ define(
 
 			switchFrame: function (dir) {
 				this.frameCounters = this.frameCounters || {};
-				this.frameDelayItr = this.frameDelay || 0;
+				this.frameDelayItr = this.frameDelayItr || 0;
 				
 				if (++this.frameDelayItr < this.frameDelay)
 					return;
@@ -40,10 +42,8 @@ define(
 				this.frameDelayItr = 0;
 
 				
-				this.frameCounters[dir] = this.frameCounters[dir] || 0
+				this.frameCounters[dir] = this.frameCounters[dir] || 0;
 				this.frameCounters[dir]++;
-				//					console.log(this.frameCounters[dir])
-				//					console.log(dir)
 
 				if (this.assets[dir].length <= this.frameCounters[dir]) {
 					this.frameCounters[dir] = 0;
@@ -55,10 +55,12 @@ define(
 			frameDelay: config.frogger.sheepFrameDelay,
 
 			update: function () {
-				this.switchFrame(this.direction);
-				this.position.x += (this.direction * -1) *  this.speed;
 
-				if (this.x + this.width < 0 || this.x > config.width) {
+				this.switchFrame(this.direction);
+
+				this.position.x += (this.direction ? -1 * this.speed : this.speed)
+
+				if (this.position.x + this.width < 0 || this.position.x > config.width) {
 					this.init();
 				}
 			}
