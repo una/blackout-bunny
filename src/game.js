@@ -17,6 +17,7 @@ define(
 		function Game () {
 			
 			this.progress = 0;
+			this.drunk = 0;
 
 			this.renderer = new P.CanvasRenderer(config.width, config.height);
 			this.stage = new P.Stage();
@@ -126,7 +127,7 @@ define(
 			
 			returnFromMinigame: function (result, next) {
 				console.log(result);
-				this.progress++;
+				// this.progress++;
 				next();
 			}
 		})

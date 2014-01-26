@@ -7,11 +7,12 @@ define(
 	],
 
 	function(P, config, keys, Minigame){
-		function puzzleGame(renderer, callBack){
+		function puzzleGame(renderer, drunk, callBack){
 			Minigame.apply(this, arguments);
 
 			this.spots = [];
 			this.items = [];
+			this.drunk = drunk;
 			this.backgroundImage = new P.Sprite(P.Texture.fromImage("mini-game1/bg.png"));
 			this.callBack = callBack;
 			this.cursor = new P.Sprite(P.Texture.fromImage("mini-game1/cursor.png"));
@@ -104,11 +105,11 @@ define(
 			}
 			
 			if(this.checkPuzzle()){
-				this.gameState = true;
+				this.gameState = false;
 				this.gameOver = true;
 			}
-			else if( (Date.now() / 1000) - this.startTime > config.puzzle.loseTime){
-				this.gameState = false;
+			else if( (Date.now() / 1000) - this.startTime > config.puzzle.loseTime) {
+				this.gameState = true;
 				this.gameOver = true;
 			}
 
@@ -127,7 +128,7 @@ define(
 			    inList,
 			    ii;
 			
-			while (spotCounter < config.puzzle.items) {
+			while (spotCounter < config.puzzle.items + this.drunk) {
 				tempSpot = Math.floor(Math.random()*10);
 				inList = false;
 				for(ii = 0; ii <this.spots.length;ii++){

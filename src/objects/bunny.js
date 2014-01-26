@@ -24,8 +24,8 @@ define(
 			],
 			update: function (next) {
 				var newPos = {
-					x: this.position.x,
-					y: this.position.y
+					x: 0,
+					y: 0
 				},
 				    moving = false,
 				    collision;
@@ -54,8 +54,8 @@ define(
 				if (moving) {
 					this.checkCollision(newPos, function (collided) {
 						if (!collided) {
-							this.position.x = newPos.x;
-							this.position.y = newPos.y;
+							this.position.x += newPos.x;
+							this.position.y += newPos.y;
 						}
 						next();
 					}.bind(this));
@@ -91,10 +91,10 @@ define(
 			})(),
 			
 			checkCollision: function (newPos, next) {
-				var maxY = newPos.y + this.height,
+				var maxY = newPos.y + this.position.y + this.height,
 				    minY = maxY - config.legHeight,
-				    maxX = newPos.x + this.width - config.legXOffset,
-				    minX = newPos.x + config.legXOffset,
+				    maxX = newPos.x + this.position.x + this.width - config.legXOffset,
+				    minX = newPos.x + this.position.x + config.legXOffset,
 
 				    minRow = Math.floor(minY / config.tileHeight),
 				    minCol = Math.floor(minX / config.tileWidth),
