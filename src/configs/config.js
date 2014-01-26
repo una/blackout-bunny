@@ -39,7 +39,7 @@ define(
 			},
 
 			dialog: {
-				marginLeft: 30,
+				marginLeft: 160,
 				marginBottom: 30,
 				marginTop: 30,
 
