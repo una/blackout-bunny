@@ -14,7 +14,7 @@ define(
 
 			if(game.drunk <= 3) {
 				return (new Dialog("karrotkingOutroDrunk" + game.drunk, game.stage, game.renderer, function(){
-
+					game.timer = Date.now();
 					sound.loadSound(musicUrl, function () {
 						sound.switchMusic(musicUrl);
 					});
