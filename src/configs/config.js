@@ -69,6 +69,7 @@ define(
 						},
 						{
 							head: false,
+							// head: "dialog/arrows.png",
 							side: 1,
 							lines: [
 								"(Use the arrow keys to navigate to Karrot King)"
@@ -130,10 +131,19 @@ define(
 				
 						{
 							head: false,
+							// head: "dialog/holding_photo.png",
 							side: 1,
 							lines: [
-								"You're about to see an image of what the store SHOULD look like. Remember it, and rearrange the pieces in the correct location.",
-								"Use spacebar to change the item you are controlling. The arrow keys move the item around the screen."
+								"You're about to see an image of what the store SHOULD look like. Remember it, and rearrange the pieces in the correct location."
+							]
+						},						
+						{
+							head: false,
+							// head: "dialog/mini1_instruction.png",
+							side: 1,
+							lines: [
+								"Use spacebar to change the item you are controlling. The arrow keys move the item around the screen.",
+								"If the item won't budge anymore, that means it's in the right spot."
 							]
 						}
 					],
@@ -172,7 +182,7 @@ define(
 
 					karrotkingOutroWin: [
 						{
-							head: "dialog/bunny_closed.png",
+							head: "dialog/feather.png",
 							side: 0,
 							lines: [
 								"What's this feather? Did I visit the chicks from the farm last night?"
