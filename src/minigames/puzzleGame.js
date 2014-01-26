@@ -3,10 +3,11 @@ define(
 		"pixi",
 		"config",
 		"../util/keys",
-		"./minigame"
+		"./minigame",
+		"../dialog"
 	],
 
-	function(P, config, keys, Minigame){
+	function(P, config, keys, Minigame, Dialog) {
 		function puzzleGame(renderer, drunk, callBack){
 			Minigame.apply(this, arguments);
 
@@ -36,6 +37,8 @@ define(
 
 			this.timer = config.puzzle.loseTime - Math.floor((Date.now()/1000) - this.startTime);
 			this.text.setText(this.timer);
+
+
 
 			this.renderer.render(this.puzzleStage);
 
@@ -166,8 +169,6 @@ define(
 			this.puzzleForeground = new P.DisplayObjectContainer();
 			this.puzzleStage = new P.Stage();
 			this.puzzleStage.addChild(this.puzzleBackground);
-//			this.puzzleStage.addChild(this.puzzleForeground);
-
 			this.puzzleBackground.addChild(this.backgroundImage);
 
 			this.puzzleForeground.addChild(this.text);
@@ -175,21 +176,25 @@ define(
 			this.cursor.position.x = -999;
 			this.cursor.position.y = -999;
 
-			//Add items
-			for(var ii = 0; ii< this.items.length; ii++){
-				// this.items[ii].position = new P.Point(this.items[ii].spot.x, this.items[ii].spot.y);
+			(new Dialog("karrotking", this.puzzleStage, this.renderer, function () {
+				
+				
+				//Add items
+				for(var ii = 0; ii< this.items.length; ii++){
+					// this.items[ii].position = new P.Point(this.items[ii].spot.x, this.items[ii].spot.y);
 
-				this.items[ii].position.x = this.items[ii].spot.x;
-				this.items[ii].position.y = this.items[ii].spot.y;
+					this.items[ii].position.x = this.items[ii].spot.x;
+					this.items[ii].position.y = this.items[ii].spot.y;
 
-				this.puzzleBackground.addChild(this.items[ii]);
-			}
+					this.puzzleBackground.addChild(this.items[ii]);
+				}
 
-			this.renderer.render(this.puzzleStage);
+				this.renderer.render(this.puzzleStage);
 
-			return window.setTimeout(function () {
-				return this.displayPlayerView(next)
-			}.bind(this), 3000);
+				return window.setTimeout(function () {
+					return this.displayPlayerView(next)
+				}.bind(this), 3000);
+			}.bind(this))).start();
 		}
 
 		puzzleGame.prototype.displayPlayerView = function (next) {
@@ -199,8 +204,8 @@ define(
 
 				return window.setTimeout(function(){
 					for (var ii = 0; ii < this.items.length; ii++) {
-						this.items[ii].position.x = (Math.random() * 300) + 500;
-						this.items[ii].position.y =  Math.random() * 250;
+						this.items[ii].position.x = (Math.random() * 300) + 400;
+						this.items[ii].position.y =  config.height - (Math.random() * 250) - 75;
 					}
 
 					//Switch items
@@ -214,6 +219,11 @@ define(
 					
 					//Kick off the real game
 					this.startTime = (Date.now() / 1000);
+
+					this.timerWindow = new P.Sprite(P.Texture.fromImage("mini-game1/timer.png"));
+					this.timerWindow.position.x = (config.width/2) - (this.timerWindow.width/2);
+					this.timerWindow.position.y = 45;
+					this.puzzleStage.addChild(this.timerWindow);
 
 					this.puzzleStage.addChild(this.puzzleForeground);
 					

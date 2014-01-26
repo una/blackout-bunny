@@ -104,6 +104,7 @@ define(
 				    col = minCol,
 				    trigger;
 
+				
 				//				console.log(config.legHeight + ", " + maxY);
 				//				console.log(minRow + " - " + maxMinRow + ", " + col + " - " + maxCol);
 
@@ -115,7 +116,7 @@ define(
 				
 				for (row = minRow; row <= maxRow; row++) {
 					for (col = minCol; col <= maxCol; col++) {
-						if (!config.passableTiles[config.world[minRow][col]]) {
+						if (!config.passableTiles[config.world[row][col]]) {
 							return next(true);
 						}
 					}

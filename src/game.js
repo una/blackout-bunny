@@ -132,17 +132,9 @@ define(
 			trigger: function (row, col, next) {
 				var trigId = row + "," + col;
 				if (config.triggers[trigId])
-					config.triggers[trigId](this, function (result) {
-						this.returnFromMinigame(result, next);
-					}.bind(this));
+					config.triggers[trigId](this, next);
 				else
 					next();
-			},
-			
-			returnFromMinigame: function (result, next) {
-				console.log(result);
-				// this.progress++;
-				next();
 			}
 		})
 

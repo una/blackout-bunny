@@ -19,6 +19,10 @@ define(
 			tileTypes: 132,
 			passableTiles: {
 				0: true,
+				83: true,
+				84: true,
+				85: true,
+				86: true,
 				87: true,
 				46: true,
 				45: true,
@@ -56,9 +60,61 @@ define(
 								"Man, I'm hungry. Let's get some food."
 							]
 						}
+					],
+
+					karrotking: [
+						{
+							head: "dialog/rufus_closed.png",
+							side: 1,
+							lines: [
+								"Hello and welcome to Karrot King, may I interest you in one of our gourmet specials or farm-fresh appetizers?"
+							]
+						},
+						{
+							head: "dialog/bunny_open.png",
+							side: 0,
+							lines: [
+								"Yeah, can I have a Bunny Burger and a small shake?"
+							]
+						},
+						{
+							head: "dialog/rufus_closed.png",
+							side: 1,
+							lines: [
+								"$6.90."
+							]
+						},
+						{
+							head: "dialog/bunny_closed.png",
+							side: 0,
+							lines: [
+								"Sure, let me get my..."
+							]
+						},
+						{
+							head: "dialog/bunny_open.png",
+							side: 0,
+							lines: [
+								"Wait, where's my wallet?"
+							]
+						},
+						{
+							head: "dialog/manager_open.png",
+							side: 1,
+							lines: [
+								"YOU!",
+								"I remember you! You were here last night and made a huge mess!"
+							]
+						},
+						{
+							head: "dialog/manager_closed.png",
+							side: 1,
+							lines: [
+								"The whole place is trashed! Either you clean up or I call the police!"
+							]
+						}
 					]
-
-
+					
 				}
 
 			},
@@ -77,7 +133,7 @@ define(
 					{x:515, y:250},
 					{x:625, y:250}],
 				items: 3,
-				loseTime: 5
+				loseTime: 30
 			},
 			
 
