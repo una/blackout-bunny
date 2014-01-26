@@ -1,6 +1,7 @@
 body {
 	background: black;
 	text-align: center;
+	font-family: 'Hammersmith One, sans serif';
 	perspective: 200px;
 	-moz-perspective: 200px;
 	-ms-perspective: 200px;
