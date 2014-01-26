@@ -31,6 +31,10 @@ define(
 		puzzleGame.prototype.animate = function(){
 			this.renderer.render(this.puzzleStage);
 
+			this.cursor.position.x = this.items[this.cursorCounter].position.x-5;
+			this.cursor.position.y = this.items[this.cursorCounter].position.y-5;
+			this.cursor.linkedItem = this.items[this.cursorCounter];
+
 			if(keys["right"]){
 				if(!this.cursor.linkedItem.placed){
 					this.cursor.position.x += config.speed;
@@ -45,33 +49,32 @@ define(
 			}
 			else if(keys["up"]){
 				if(!this.cursor.linkedItem.placed){
-					this.cursor.position.y += config.speed;
-					this.cursor.position.y += config.speed;
+					this.cursor.position.y -= config.speed;
+					this.cursor.linkedItem.position.y -= config.speed;
 				}
 				
 			}
 			else if(keys["down"]){
 
 				if(!this.cursor.linkedItem.placed){
-					this.cursor.position.y -= config.speed;
-					this.cursor.position.y -= config.speed;
+					this.cursor.position.y += config.speed;
+					this.cursor.linkedItem.position.y += config.speed;
 				}
 				
 			}
 			else if(keys["space"]){
-
-				if(Math.abs(this.cursor.linkedItem.position.x - this.cursor.linkedItem.spot.x) < 20
-				   && Math.abs(this.cursor.linkedItem.position.y - this.cursor.linkedItem.spot.y) < 20){
+				var li = this.cursor.linkedItem;
+				if(Math.abs(li.position.x - li.spot.x) < 20
+				   && Math.abs(li.position.y - li.spot.y) < 20){
 					console.log("CORRECT SPOT!");
-					this.items[this.cursorCounter].placed = true;
-					this.cursorCounter++;
-					if(this.cursorCounter > this.items.length){
-						this.cursorCounter = -0;
-					}
+					li.placed = true;
+					li.position.x = li.spot.x;
+					li.position.y = li.spot.y;
+				}
 
-					this.cursor.position = new P.Point(this.items[this.cursorCounter].position.x-5, this.items[this.cursorCounter].position.y-5);
-					this.cursor.linkedItem = this.items[this.cursorCounter];
-
+				this.cursorCounter++;
+				if(this.cursorCounter >= this.items.length){
+					this.cursorCounter = 0;
 				}
 
 			}
@@ -142,15 +145,16 @@ define(
 			//Add bg
 			this.puzzleStage.addChild(this.backgroundImage);
 
-			//Add cursor
-			this.cursor.position = new P.Point(this.items[this.cursorCounter].position.x-5, this.items[this.cursorCounter].position.y-5);
-			this.cursor.linkedItem = this.items[this.cursorCounter];
-
 			this.puzzleStage.addChild(this.cursor);
+			this.cursor.position.x = -999;
+			this.cursor.position.y = -999;
 
 			//Add items
 			for(var ii =0; ii< this.items.length; ii++){
-				this.items[ii].position = new P.Point(this.items[ii].spot.x, this.items[ii].spot.y);
+				// this.items[ii].position = new P.Point(this.items[ii].spot.x, this.items[ii].spot.y);
+
+				this.items[ii].position.x = this.items[ii].spot.x;
+				this.items[ii].position.y = this.items[ii].spot.y;
 
 				this.puzzleStage.addChild(this.items[ii]);
 			}
@@ -159,7 +163,7 @@ define(
 
 			return window.setTimeout(function () {
 				return this.displayPlayerView(next)
-			}.bind(this), 10000);
+			}.bind(this), 3000);
 		}
 
 		puzzleGame.prototype.displayPlayerView = function (next) {
