@@ -38,7 +38,7 @@ define(
 		function Frogger (renderer, drunk, next) {
 			this.next = function () {
 				sound.switchMusic(this.musicCache);
-				next.apply(arguments);
+				next.apply(this, arguments);
 			}.bind(this);
 			this.drunk = drunk;
 
@@ -55,7 +55,7 @@ define(
 		_.extend(Frogger.prototype, {
 
 			start: function () {
-				var ii;
+				var ii, egg, sheep;
 				
 				this.musicCache = sound.switchMusic("assets/src/Music/MinigameSober.mp3");
 
@@ -63,20 +63,24 @@ define(
 				
 				this.eggsLeft = config.frogger.eggs + this.drunk;
 				for (ii = 0; ii < this.eggsLeft; ii++) {
-					this.eggs.push(new Egg());
-					this.eggs[ii].position.y = 5;
-					this.eggs[ii].position.x =
+					egg = new Egg();
+					egg.position.y = 5;
+					egg.position.x =
 						(((3 * (ii + 1)) % 7) * 100) + 50;
 
-					this.stage.addChild(this.eggs[ii]);
+					this.eggs.push(egg);
+					this.stage.addChild(egg);
 				}
 
-				for (ii = 0; ii < config.sheepCount * (this.drunk + 1); ii++) {
-					this.sheep.push(new Sheep());
-					this.sheep[ii].init();
-					this.stage.addChild(this.sheep[ii]);
+				for (ii = 0; ii < config.frogger.sheepCount * (this.drunk + 1); ii++) {
+					sheep = new Sheep();
+					this.sheep.push(sheep);
+					sheep.init();
+					this.stage.addChild(sheep);
 				}
 
+//				console.log(this.sheep);
+				
 				this.stage.addChild(this.bunny);
 					
 				
@@ -89,11 +93,14 @@ define(
 				this.bunny.update(this, this.eggs, this.sheep);
 				_.each(this.sheep, function (s) {
 					s.update();
-					console.log(s.position.x);
 				}, this);
 				
-				if (this.eggsLeft)
+				if (this.done) {
+					this.next(!this.win)
+				}
+				else {
 					window.requestAnimationFrame(this.frame.bind(this));
+				}
 			},
 
 			takeEgg: function (egg) {
@@ -103,12 +110,15 @@ define(
 
 				this.bunny.position.y = config.height - this.bunny.height - 5;
 				
-				if (this.eggs.length == 0)
-					this.next();
+				if (this.eggs.length == 0) {
+					this.done = true;
+					this.win = true;
+				}
 			},
 
 			lose: function () {
-				this.next(true);
+				this.done = true;
+				this.win = false;
 			}
 
 		});

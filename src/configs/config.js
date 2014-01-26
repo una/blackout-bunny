@@ -237,7 +237,7 @@ define(
 				minSheepSpeed: 3,
 				maxSheepSpeed: 4,
 
-				sheepCount: 5
+				sheepCount: 12
 			},
 
 			world:

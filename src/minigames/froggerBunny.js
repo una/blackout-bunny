@@ -25,6 +25,7 @@ define(
 				["char-sprites/sprite-f-1.png", "char-sprites/sprite-f-2.png"],
 				["char-sprites/sprite-l-1.png", "char-sprites/sprite-l-2.png", "char-sprites/sprite-l-3.png", "char-sprites/sprite-l-4.png"]
 			],
+			frameDelay: config.frameDelay,
 			update: function (next) {
 				var newPos = {
 					x: 0,
@@ -94,10 +95,11 @@ define(
 					    && minY < egg.position.y + egg.height)
 						return egg;
 				};
+//				console.log(this.game.sheep.length);
 				for (ii = 0; ii < this.game.sheep.length; ii++) {
 					sheep = this.game.sheep[ii];
 					if (maxX > sheep.position.x
-					    && minX < sheep.position.sheep + egg.width
+					    && minX < sheep.position.x + sheep.width
 					    && maxY > sheep.position.y
 					    && minY < sheep.position.y + sheep.height)
 						return sheep;
@@ -109,13 +111,15 @@ define(
 
 			switchFrame: function (dir) {
 				this.frameCounters = this.frameCounters || {};
-				this.frameDelayItr = this.frameDelay || 0;
+				this.frameDelayItr = this.frameDelayItr || 0;
+
+				console.log(this.frameDelayItr);
 				
-				if (++this.frameDelayItr < this.frameDelay)
+				if (++this.frameDelayItr < this.frameDelay) {
 					return;
+				}
 
 				this.frameDelayItr = 0;
-
 				
 				this.frameCounters[dir] = this.frameCounters[dir] || 0
 				this.frameCounters[dir]++;
@@ -134,11 +138,4 @@ define(
 		return Bunny;
 	}
 );
-
-
-
-
-
-
-
 
