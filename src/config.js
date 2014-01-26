@@ -1,8 +1,7 @@
 define(
 	[
-		"./minigames/puzzle"
 	],
-	function (Puzzle) {
+	function () {
 		return {
 			//Canvas size
 			width: 800,
@@ -23,31 +22,21 @@ define(
 				1: true
 			},
 
-			triggers: {
-				"1,1": function (game, cb) {
-					if (game.progress > 0)
-						cb();
-					else {
-						(new Puzzle(game.renderer, cb)).run();
-					}
-				}
-			},
-
 
 			puzzle: {
 				spots: [
-			{x:50, y:100,id:1},
-			{x:100,y:200,id:2},
-			{x:60, y:50, id:3},
-			{x:500,y:400,id:4},
-			{x:300, y: 10, id:5},
-			{x:750, y: 450, id:6},
-			{x:245, y:300, id:7},
-			{x:300, y: 300, id:8},
-			{x:100, y:100, id:9},
-			{x:200, y:350,id:10}],
-			items: 7,
-			}
+					{x:50, y:100,id:1},
+					{x:100,y:200,id:2},
+					{x:60, y:50, id:3},
+					{x:500,y:400,id:4},
+					{x:300, y: 10, id:5},
+					{x:750, y: 450, id:6},
+					{x:245, y:300, id:7},
+					{x:300, y: 300, id:8},
+					{x:100, y:100, id:9},
+					{x:200, y:350,id:10}],
+				items: 7
+			},
 			
 
 			world:

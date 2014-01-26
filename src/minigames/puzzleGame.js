@@ -1,0 +1,194 @@
+define(
+	[
+		"pixi",
+		"config",
+		"../util/keys",
+		"./minigame"
+	],
+
+	function(P, config, keys, Minigame){
+		function puzzleGame(renderer, callBack){
+			Minigame.apply(this, arguments);
+
+			this.spots = [];
+			this.items = [];
+			this.backgroundImage = new P.Sprite(P.Texture.fromImage("mini-game1/bg.png"));
+			this.callBack = callBack;
+			this.cursor = new P.Sprite(P.Texture.fromImage("mini-game1/cursor.png"));
+			this.cursorCounter = 0;
+
+		}
+
+		puzzleGame.prototype = new Minigame();
+
+		puzzleGame.prototype.start = function () {
+			this.generatePuzzle();
+			return this.displayPuzzle(function () {
+				window.requestAnimationFrame(this.animate.bind(this))
+			}.bind(this));
+		}
+
+		puzzleGame.prototype.animate = function(){
+			this.renderer.render(this.puzzleStage);
+
+			if(keys["right"]){
+				if(!this.cursor.linkedItem.placed){
+					this.cursor.position.x += config.speed;
+					this.cursor.linkedItem.position.x += config.speed;
+				}
+			}
+			else if(keys["left"]){
+				if(!this.cursor.linkedItem.placed){
+					this.cursor.position.x -= config.speed;
+					this.cursor.linkedItem.position.x -= config.speed;
+				}
+			}
+			else if(keys["up"]){
+				if(!this.cursor.linkedItem.placed){
+					this.cursor.position.y += config.speed;
+					this.cursor.position.y += config.speed;
+				}
+				
+			}
+			else if(keys["down"]){
+
+				if(!this.cursor.linkedItem.placed){
+					this.cursor.position.y -= config.speed;
+					this.cursor.position.y -= config.speed;
+				}
+				
+			}
+			else if(keys["space"]){
+
+				if(Math.abs(this.cursor.linkedItem.position.x - this.cursor.linkedItem.spot.x) < 20
+				   && Math.abs(this.cursor.linkedItem.position.y - this.cursor.linkedItem.spot.y) < 20){
+					console.log("CORRECT SPOT!");
+					this.items[this.cursorCounter].placed = true;
+					this.cursorCounter++;
+					if(this.cursorCounter > this.items.length){
+						this.cursorCounter = -0;
+					}
+
+					this.cursor.position = new P.Point(this.items[this.cursorCounter].position.x-5, this.items[this.cursorCounter].position.y-5);
+					this.cursor.linkedItem = this.items[this.cursorCounter];
+
+				}
+
+			}
+
+			if(this.checkPuzzle()){
+				this.gameState = true;
+				this.gameOver = true;
+			}
+			else if(this.startTime - (Date.now()/1000) > 30){
+				this.gameState = false;
+				this.gameOver = true;
+			}
+
+
+
+			if(this.gameOver)
+			{
+				return this.callBack(this.gameState);
+			}
+			else
+				return window.requestAnimationFrame(this.animate.bind(this));
+		};
+
+
+
+		puzzleGame.prototype.generatePuzzle = function(){
+
+
+			//First generate the possible positions that can be filled, so:
+			//There are 10 possible spots, of which 7 will be used
+			var spotCounter = 0;
+			while(spotCounter < 7){
+				var tempSpot = Math.floor(Math.random()*10);
+				var inList = false;
+				for(var i = 0; i <this.spots.length;i++){
+
+					if(this.spots[i].id == tempSpot){
+						inList = true;
+						break;
+					}
+				}
+
+				if(!inList){
+					this.spots[spotCounter] = config.puzzle.spots[tempSpot];
+
+					//Next generate all the items tied to a spot
+					this.items[spotCounter] = new item(this.spots[spotCounter], spotCounter);
+
+					//Increment spotCounter
+					spotCounter++;
+				}
+			}
+		}
+
+		puzzleGame.prototype.checkPuzzle = function(){
+			for(var ii =0; ii< this.items.length;ii++){
+				if(!this.items[ii].placed){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		puzzleGame.prototype.displayPuzzle = function (next) {
+
+			this.puzzleStage = new P.Stage();
+
+			//Add bg
+			this.puzzleStage.addChild(this.backgroundImage);
+
+			//Add cursor
+			this.cursor.position = new P.Point(this.items[this.cursorCounter].position.x-5, this.items[this.cursorCounter].position.y-5);
+			this.cursor.linkedItem = this.items[this.cursorCounter];
+
+			this.puzzleStage.addChild(this.cursor);
+
+			//Add items
+			for(var ii =0; ii< this.items.length; ii++){
+				this.items[ii].position = new P.Point(this.items[ii].spot.x, this.items[ii].spot.y);
+
+				this.puzzleStage.addChild(this.items[ii]);
+			}
+
+			this.renderer.render(this.puzzleStage);
+
+			return window.setTimeout(function () {
+				return this.displayPlayerView(next)
+			}.bind(this), 10000);
+		}
+
+		puzzleGame.prototype.displayPlayerView = function (next) {
+			return setTimeout(function(){
+				this.flashStage = new P.Stage(0x000000);
+				this.renderer.render(this.flashStage);
+
+				return setTimeout(function(){
+					for(var ii=0;ii< this.items.length;ii++){
+						this.items[ii].position = new P.Point((Math.random()*300)+500, Math.random()*250);
+					}
+
+					//Kick off the real game
+					this.startTime = (Date.now()/1000);
+					return next();
+				}.bind(this), 1000);
+			}.bind(this), 1000);
+		}
+
+		function item(spot, id){
+			P.Sprite.call(this, P.Texture.fromImage("mini-game1/object-" + id + ".png"));
+			this.spot = spot;
+			this.placed = false;
+		}
+
+		item.prototype = Object.create(P.Sprite.prototype);
+
+
+		return puzzleGame;
+		
+	}
+)

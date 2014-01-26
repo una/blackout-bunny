@@ -7,7 +7,9 @@ define(
 
 		"./util/keys",
 
-		"./objects/bunny"
+		"./objects/bunny",
+		"./triggers"
+
 	],
 	function (P, _, config, keys, Bunny) {
 		function Game () {
@@ -65,7 +67,7 @@ define(
 
 				this.bunny = new Bunny(this)
 				
-				this.bunny.position.x = 600;
+				this.bunny.position.x = 200;
 				this.bunny.position.y = 100;
 
 
